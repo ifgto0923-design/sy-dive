@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>櫻雪游泳池 SY Swim</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&family=ZCOOL+KuaiLe&display=swap');
+  :root {
+    --paper: #fdfaf5; --ink: #3a3028; --ink-mid: #8b7e6e;
+    --sky: #d4f1f9; --pool: #0088cc; --coral: #f7c5cc;
+    --sun: #f9d56e; --leaf: #a8c97e; --border: #a8e6f0;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Noto Sans TC','Noto Sans JP','PingFang TC','Microsoft YaHei',sans-serif;background:var(--paper);color:var(--ink);line-height:1.8;font-size:16px;overflow-x:hidden}
+  @keyframes crayonFade{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .crayon{animation:crayonFade 0.8s cubic-bezier(.4,.02,.2,1) both}
+  .crayon:nth-child(1){animation-delay:0.1s}
+  .crayon:nth-child(2){animation-delay:0.25s}
+  .crayon:nth-child(3){animation-delay:0.4s}
+  .crayon:nth-child(4){animation-delay:0.55s}
+  .doodle-section{position:relative;padding:5rem 1.5rem;max-width:920px;margin:0 auto}
+  .doodle-title{font-family:'ZCOOL KuaiLe','Noto Sans TC',sans-serif;font-size:2.2rem;color:var(--ink);text-align:center;margin-bottom:0.5rem}
+  .doodle-title::after{content:'';display:block;width:60px;height:4px;background:linear-gradient(90deg,#f7c5cc,#a8e6f0,#d4f1f9);margin:0.8rem auto 2rem;border-radius:2px}
+  .doodle-sub{text-align:center;font-size:0.95rem;color:var(--ink-mid);margin-bottom:2.5rem;font-family:'Noto Serif TC',serif}
+
+  .nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(212,241,249,0.96);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:2px solid var(--border);padding:0.5rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+  .nav-logo img{height:32px}
+  .nav-links{display:flex;gap:1.5rem;list-style:none}
+  .nav-links a{text-decoration:none;color:var(--ink);font-size:0.85rem;font-weight:500;transition:color 0.3s}
+  .nav-links a:hover{color:#3a7ca5}
+  .nav-cta-btn{background:#f7c5cc;color:white!important;padding:0.4rem 1.2rem;border-radius:16px 4px 16px 4px}
+
+  .hero{min-height:85vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#d4f1f9 0%,#a8e6f0 50%,#3a7ca5 100%);position:relative;overflow:hidden;padding:6rem 1.5rem 4rem}
+  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 30%,rgba(255,255,255,0.3) 0%,transparent 60%),radial-gradient(circle at 80% 70%,rgba(249,213,110,0.2) 0%,transparent 50%)}
+  .hero-content{position:relative;z-index:1;text-align:center;color:white;max-width:600px}
+  .hero-content h1{font-family:'ZCOOL KuaiLe','Noto Sans TC',sans-serif;font-size:clamp(2.5rem,6vw,4rem);line-height:1.3;margin-bottom:1rem;text-shadow:2px 3px 0 rgba(0,0,0,0.15)}
+  .hero-content p{font-size:1.1rem;opacity:0.9;font-family:'Noto Serif TC',serif;margin-bottom:2rem}
+
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+  .card{background:white;padding:2rem 1.5rem;border-radius:18px 6px 18px 6px;border:2px solid var(--border);box-shadow:3px 3px 0 rgba(0,0,0,0.06);transition:transform 0.3s,box-shadow 0.3s}
+  .card:hover{transform:translateY(-4px);box-shadow:6px 6px 0 rgba(0,0,0,0.08)}
+  .card h3{font-family:'ZCOOL KuaiLe','Noto Sans TC',sans-serif;font-size:1.25rem;margin-bottom:0.5rem;color:var(--ink)}
+  .card p{font-size:0.85rem;color:var(--ink-mid);line-height:1.7}
+
+  .stats-row{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin:2rem 0}
+  .stat{text-align:center;background:white;border:2px solid var(--border);border-radius:50%;width:120px;height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:3px 3px 0 rgba(0,0,0,0.05);transition:transform 0.3s}
+  .stat:hover{transform:scale(1.1)}
+  .stat-num{font-family:'ZCOOL KuaiLe',sans-serif;font-size:1.8rem;color:#3a7ca5}
+  .stat-lbl{font-size:0.78rem;color:var(--ink-mid);margin-top:0.3rem}
+
+  .pool-band{position:relative;overflow:hidden;height:380px;display:flex;align-items:center;justify-content:center;border:3px solid var(--border);border-radius:18px 6px 18px 6px;margin:2rem auto;max-width:920px;box-shadow:6px 6px 0 rgba(0,0,0,0.06)}
+  .pool-band img{width:100%;height:100%;object-fit:cover}
+
+  .btn{display:inline-block;padding:0.75rem 2rem;text-decoration:none;border-radius:16px 4px 16px 4px;font-weight:600;font-size:0.9rem;transition:transform 0.2s,box-shadow 0.2s;cursor:pointer;border:2px solid #f7c5cc;background:#f7c5cc;color:white;box-shadow:3px 3px 0 rgba(247,197,204,0.3)}
+  .btn:hover{transform:translateY(-2px);box-shadow:5px 5px 0 rgba(247,197,204,0.4)}
+  .btn-outline{background:transparent;color:#f7c5cc;border:2px solid #f7c5cc;box-shadow:3px 3px 0 rgba(247,197,204,0.15)}
+
+  footer{text-align:center;padding:3rem 1.5rem;background:var(--ink);color:rgba(255,255,255,0.4);font-size:0.75rem;letter-spacing:0.06em}
+  footer b{color:rgba(255,255,255,0.65)}
+
+  .squiggle{position:absolute;width:80px;height:40px;border:2px dashed var(--border);border-radius:50%;opacity:0.4;pointer-events:none}
+
+  @media(max-width:768px){
+    .nav-links{display:none}
+    .doodle-title{font-size:1.6rem}
+    .pool-band{height:220px;border-radius:12px 4px 12px 4px}
+    .stat{width:90px;height:90px}
+    .stat-num{font-size:1.3rem}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="櫻雪旅行社_潛水服務.html" class="nav-logo"><img src="sy-dive-images/logo-main.png" alt="櫻雪"></a>
+  <ul class="nav-links">
+    <li><a href="櫻雪旅行社_潛水服務.html">首頁</a></li>
+    <li><a href="沖繩潛水導覽.html">沖繩導覽</a></li>
+    <li><a href="櫻雪潛水_部落格.html">部落格</a></li>
+    <li><a href="#contact" class="nav-cta-btn">預約</a></li>
+  </ul>
+</nav>
+
+<section class="hero" style="background:linear-gradient(180deg,rgba(212,241,249,0.35) 0%,rgba(168,230,240,0.35) 50%,rgba(58,124,165,0.4) 100%),url('sy-dive-images/pool-syk1.jpg') center/cover no-repeat;">
+  <div class="hero-content crayon">
+    <h1>櫻雪游泳池</h1>
+    <p>連續 25 年業界模範標準 · 全年恆溫 28°C<br>潛水訓練 ＋ 游泳教學 ＋ 自主練習</p>
+    <a href="https://lin.ee/U08gDqx" class="btn" style="margin-top:0.5rem;">預約體驗</a>
+  </div>
+</section>
+
+<section class="doodle-section crayon">
+  <div class="squiggle" style="top:20px;left:-20px;"></div>
+  <div class="squiggle" style="bottom:20px;right:-20px;transform:rotate(180deg);"></div>
+  <h2 class="doodle-title">一個像家一樣的泳池</h2>
+  <p class="doodle-sub">
+    不只是訓練場，更是櫻雪品牌的核心據點。<br>
+    從潛水考證到游泳教學，從兒童玩水到成人水適能——<br>
+    這裡有最舒服的水溫、最乾淨的水質，<br>
+    和像朋友一樣的教練團隊。
+  </p>
+  <div class="pool-band crayon">
+    <img src="sy-dive-images/pool-syk4.jpg" alt="仁愛游泳池" onerror="this.style.display='none'">
+  </div>
+  <div class="stats-row crayon">
+    <div class="stat"><div class="stat-num">9</div><div class="stat-lbl">水道線</div></div>
+    <div class="stat"><div class="stat-num">25m</div><div class="stat-lbl">標準長度</div></div>
+    <div class="stat"><div class="stat-num">28</div><div class="stat-lbl">恆溫水溫</div></div>
+    <div class="stat"><div class="stat-num">25y</div><div class="stat-lbl">營運歷史</div></div>
+  </div>
+</section>
+
+<section class="doodle-section crayon" style="background:rgba(212,241,249,0.5);border-radius:24px;">
+  <h2 class="doodle-title">在這裡可以做什麼</h2>
+  <p class="doodle-sub">無論是潛水教練、游泳新手、還是想維持體態</p>
+  <div style="max-width:920px;margin:0 auto 2rem;border-radius:18px 6px 18px 6px;overflow:hidden;border:2px solid var(--border);box-shadow:3px 3px 0 rgba(0,0,0,0.06);"><img src="sy-dive-images/pool-syk3.jpg" alt="" style="width:100%;max-height:300px;object-fit:cover;" onerror="this.parentElement.style.display='none'"></div>
+  <div class="card-grid">
+    <div class="card crayon">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" style="margin-bottom:0.8rem;"><circle cx="18" cy="18" r="16" stroke="#3a7ca5" stroke-width="1.5" fill="none"/><path d="M12 22c2-6 10-6 12 0" stroke="#3a7ca5" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="18" cy="12" r="2" fill="#3a7ca5"/><line x1="18" y1="14" x2="18" y2="20" stroke="#3a7ca5" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <h3>PADI 平靜水域訓練</h3>
+      <p>考取 OW / AOW 證照的第一站。9 條水道同時教學不壅擠，精緻小班確保安全與學習品質。所有潛水裝備現場提供。</p>
+    </div>
+    <div class="card crayon">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" style="margin-bottom:0.8rem;"><circle cx="18" cy="14" r="6" stroke="#3a7ca5" stroke-width="1.5" fill="none"/><path d="M8 28c2-10 18-10 20 0" stroke="#3a7ca5" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="15" cy="13" r="1" fill="#3a7ca5"/><circle cx="21" cy="13" r="1" fill="#3a7ca5"/></svg>
+      <h3>兒童游泳班</h3>
+      <p>分齡分級教學，從 4 歲玩水啟蒙到競技訓練。溫柔耐心的教練群，讓孩子愛上游泳、不怕水。親子共游也歡迎。</p>
+    </div>
+    <div class="card crayon">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" style="margin-bottom:0.8rem;"><path d="M6 24c3-4 7-4 10 0 3-4 7-4 10 0" stroke="#3a7ca5" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M8 20c3-3 7-3 10 0 3-3 7-3 10 0" stroke="#3a7ca5" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/><circle cx="18" cy="10" r="4" stroke="#3a7ca5" stroke-width="1.5" fill="none"/></svg>
+      <h3>成人游泳 / 水適能</h3>
+      <p>零基礎到進階，一對一或小班制。水中有氧、復健水療、鐵人三項游泳訓練——量身打造你的水上計畫。</p>
+    </div>
+    <div class="card crayon">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" style="margin-bottom:0.8rem;"><rect x="4" y="10" width="28" height="20" rx="3" stroke="#3a7ca5" stroke-width="1.5" fill="none"/><line x1="10" y1="10" x2="10" y2="6" stroke="#3a7ca5" stroke-width="1.5" stroke-linecap="round"/><line x1="26" y1="10" x2="26" y2="6" stroke="#3a7ca5" stroke-width="1.5" stroke-linecap="round"/><line x1="4" y1="20" x2="32" y2="20" stroke="#3a7ca5" stroke-width="1" opacity="0.4"/><circle cx="18" cy="16" r="2" fill="#3a7ca5"/></svg>
+      <h3>場地租借</h3>
+      <p>包道訓練、泳池派對、水中攝影、團體包場——歡迎各單位與教練群洽詢合作，靈活時段與優惠方案。</p>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<section class="doodle-section crayon">
+  <h2 class="doodle-title">設備與水質</h2>
+  <p class="doodle-sub">你只需要人到，其他我們準備好</p>
+  <div style="max-width:920px;margin:0 auto 2rem;border-radius:18px 6px 18px 6px;overflow:hidden;border:2px solid var(--border);box-shadow:3px 3px 0 rgba(0,0,0,0.06);"><img src="sy-dive-images/pool-syk5.jpg" alt="" style="width:100%;max-height:300px;object-fit:cover;"></div>
+  <div class="card-grid">
+    <div class="card crayon">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" style="margin-bottom:0.8rem;"><circle cx="18" cy="18" r="14" stroke="#3a7ca5" stroke-width="1.5" fill="none"/><path d="M10 14c2-4 6-6 8-6 4 0 6 4 8 8" stroke="#3a7ca5" stroke-width="1.5" fill="#d4f1f9" opacity="0.6"/><line x1="12" y1="24" x2="24" y2="24" stroke="#3a7ca5" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <h3>水質管理</h3>
+      <p>臭氧消毒 ＋ 紫外線殺菌，24 小時循環過濾系統。水質透明到池底字樣清晰可見——業界最高標準，連續 25 年無違規紀錄。</p>
+    </div>
+    <div class="card crayon">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" style="margin-bottom:0.8rem;"><rect x="4" y="8" width="28" height="22" rx="2" stroke="#3a7ca5" stroke-width="1.5" fill="none"/><line x1="4" y1="16" x2="32" y2="16" stroke="#3a7ca5" stroke-width="1"/><rect x="8" y="12" width="8" height="4" rx="1" stroke="#3a7ca5" stroke-width="1" opacity="0.5"/><rect x="20" y="22" width="8" height="5" rx="1" stroke="#3a7ca5" stroke-width="1" opacity="0.5"/></svg>
+      <h3>硬體設施</h3>
+      <p>獨立淋浴間、吹風機區、置物櫃（附密碼鎖）、飲水機、休息座椅區。無障礙坡道，友善行動不便者。</p>
+    </div>
+    <div class="card crayon">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" style="margin-bottom:0.8rem;"><rect x="6" y="8" width="24" height="22" rx="2" stroke="#3a7ca5" stroke-width="1.5" fill="none"/><path d="M22 18h3v4h-3z" stroke="#3a7ca5" stroke-width="1.5" fill="#d4f1f9"/><circle cx="18" cy="15" r="3" stroke="#3a7ca5" stroke-width="1.5" fill="none"/><line x1="13" y1="26" x2="23" y2="26" stroke="#3a7ca5" stroke-width="1" opacity="0.4"/></svg>
+      <h3>潛水裝備室</h3>
+      <p>BCD 14 套、調節器 12 組、面鏡 28 支、蛙鞋 30+ 雙、防寒衣各尺寸充足。全套正廠裝備，定期安檢。</p>
+    </div>
+  </div>
+</section>
+
+<section class="doodle-section crayon" style="background:rgba(212,241,249,0.5);border-radius:24px;">
+  <h2 class="doodle-title">怎麼來</h2>
+  <p class="doodle-sub">台北市中心，捷運 3 分鐘</p>
+  <div style="max-width:920px;margin:0 auto 2rem;border-radius:18px 6px 18px 6px;overflow:hidden;border:2px solid var(--border);box-shadow:3px 3px 0 rgba(0,0,0,0.06);"><img src="sy-dive-images/pool-syk6.jpg" alt="" style="width:100%;max-height:300px;object-fit:cover;" onerror="this.parentElement.style.display='none'"></div>
+  <div class="card-grid" style="text-align:center;">
+    <div class="card crayon">
+      <h3>捷運</h3>
+      <p>淡水信義線<br><strong>信義安和站</strong> 2 號出口<br>步行 3 分鐘</p>
+    </div>
+    <div class="card crayon">
+      <h3>公車</h3>
+      <p>235 / 292 / 33 路<br>至<b>仁愛安和路口</b><br>下車即達</p>
+    </div>
+    <div class="card crayon">
+      <h3>開車</h3>
+      <p>周邊收費停車場多處<br>仁愛路沿線停車格<br>建國高架下停車場</p>
+    </div>
+  </div>
+  <p style="text-align:center;margin-top:2rem;font-size:0.9rem;color:var(--ink-mid);font-family:'Noto Serif TC',serif;">
+    台北市大安區仁愛路四段 130 號<br>
+    <span style="font-size:0.8rem;">（仁愛圓環旁，近誠品敦南原址）</span>
+  </p>
+</section>
+
+<section class="doodle-section crayon" style="text-align:center;">
+  <div style="max-width:920px;margin:0 auto 2rem;border-radius:18px 6px 18px 6px;overflow:hidden;border:2px solid var(--border);box-shadow:3px 3px 0 rgba(0,0,0,0.06);"><img src="sy-dive-images/pool-syk2.jpg" alt="" style="width:100%;max-height:260px;object-fit:cover;" onerror="this.parentElement.style.display='none'"></div>
+  <h2 class="doodle-title">來游一下吧</h2>
+  <p class="doodle-sub">第一次來？先約免費參觀，看看水質、認識教練、感受氛圍。</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <a href="https://lin.ee/U08gDqx" class="btn">LINE 預約參觀</a>
+    <a href="櫻雪旅行社_潛水服務.html" class="btn btn-outline">回櫻雪首頁</a>
+  </div>
+</section>
+
+<footer>
+  <b>櫻雪游泳池 SY Swim</b><br>
+  SAKURA YUKI 集團 · 冬雪夏水 · 台北 ＋ 沖繩
+</footer>
+
+</body>
+</html>

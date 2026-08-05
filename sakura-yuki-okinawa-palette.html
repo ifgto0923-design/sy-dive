@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAKURA YUKI · 沖繩海色盤</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;700;900&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+  :root {
+    --paper:          #faf8f5;
+    --sky-celadon:    #c6e3e8;
+    --ink:            #1a1a1a;
+    --sakura-light:   #f7c5cc;
+    --sakura-main:    #eea5b1;
+    --vermillion:     #c44536;
+    --seafoam:        #d4f1f9;
+    --pocari-blue:    #0080ff;
+    --ryukyu-blue:    #3a7ca5;
+    --deep-ocean:     #2c5f7c;
+    --text-primary:   #1a1a1a;
+    --text-secondary: #5a5a5a;
+    --border-light:   #e8e3d8;
+    --border-blue:    #a8e6f0;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--paper);
+    color: var(--text-primary);
+    font-family: 'Noto Sans TC', sans-serif;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── nav ── */
+  .nav {
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background: rgba(250,248,245,0.94);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-light);
+    height: 56px; display:flex; align-items:center; justify-content:space-between;
+    padding: 0 2rem;
+  }
+  .nav-logo {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700; font-size: 1.05rem;
+    letter-spacing: 0.12em;
+    color: var(--ink);
+  }
+  .nav-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.18em;
+    color: var(--ryukyu-blue);
+  }
+
+  .container { max-width: 960px; margin:0 auto; padding:0 2rem; }
+
+  /* ── hero ── */
+  .hero {
+    padding: 8rem 2rem 5rem; text-align:center;
+    background: linear-gradient(180deg, var(--seafoam) 0%, var(--sky-celadon) 40%, var(--paper) 100%);
+    position:relative; overflow:hidden;
+  }
+  .hero::before {
+    content:''; position:absolute;
+    top:-60px; right:-60px;
+    width:260px; height:260px;
+    background: radial-gradient(circle, rgba(0,128,255,0.08) 0%, transparent 70%);
+    border-radius:50%;
+  }
+  .hero::after {
+    content:''; position:absolute;
+    bottom:-30px; left:-30px;
+    width:180px; height:180px;
+    background: radial-gradient(circle, rgba(238,165,177,0.15) 0%, transparent 70%);
+    border-radius:50%;
+  }
+  .hero-inner { position:relative; z-index:1; }
+  .hero-kana {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.7rem; letter-spacing: 0.3em;
+    color: var(--ryukyu-blue); opacity: 0.75;
+    margin-bottom: 1rem;
+  }
+  .hero-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2.7rem; font-weight: 900;
+    letter-spacing: 0.12em; line-height: 1.35;
+    color: var(--ink);
+  }
+  .hero-sub {
+    font-size: 1rem; color: var(--text-secondary);
+    font-weight: 300; letter-spacing: 0.08em;
+    margin-top: 0.6rem;
+  }
+
+  /* ── sections ── */
+  .section { padding: 5rem 0; }
+  .section-header { margin-bottom: 3rem; text-align:center; }
+  .sec-label {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.65rem; letter-spacing: 0.3em;
+    color: var(--ryukyu-blue); opacity: 0.75;
+    margin-bottom: 0.4rem;
+  }
+  .sec-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.7rem; font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+  .sec-line {
+    width: 40px; height: 1px;
+    background: var(--vermillion);
+    margin: 0.6rem auto 0;
+  }
+
+  /* ── palette box ── */
+  .pbox {
+    background: white;
+    border: 1px solid var(--border-light);
+    padding: 2.5rem 2rem;
+    margin-bottom: 2rem;
+  }
+  .pbox-label {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.63rem; letter-spacing: 0.3em;
+    color: var(--ryukyu-blue); opacity: 0.75;
+    margin-bottom: 1.5rem;
+  }
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 1rem;
+  }
+  .swatch {
+    border: 1px solid var(--border-light);
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .swatch:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    border-color: var(--pocari-blue);
+  }
+  .swatch-color { height: 100px; }
+  .swatch-color.lg { height: 140px; }
+  .swatch-info { background: white; padding: 0.75rem 1rem; }
+  .swatch-name {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.85rem; font-weight: 600;
+    color: var(--ink);
+  }
+  .swatch-desc {
+    font-size: 0.68rem; color: var(--text-secondary);
+    margin: 0.1rem 0;
+  }
+  .swatch-hex {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem; color: var(--ryukyu-blue);
+    letter-spacing: 0.03em;
+  }
+  .swatch-token {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem; color: var(--text-secondary);
+    margin-top: 0.15rem; opacity: 0.7;
+  }
+
+  /* ── usage table ── */
+  .usage-table {
+    width: 100%; border-collapse: collapse;
+    font-size: 0.8rem;
+  }
+  .usage-table thead th {
+    text-align: left;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 500; font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--text-secondary);
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .usage-table tbody td {
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--border-light);
+    vertical-align: middle;
+  }
+  .usage-dot {
+    display: inline-block;
+    width: 20px; height: 20px;
+    border-radius: 3px;
+    border: 1px solid rgba(0,0,0,0.06);
+    vertical-align: middle;
+    margin-right: 0.5rem;
+  }
+
+  /* ── scene cards ── */
+  .scene-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .scene-card {
+    border: 1px solid var(--border-light);
+    overflow: hidden;
+  }
+  .scene-banner {
+    height: 100px;
+    display: flex; align-items: flex-end;
+    padding: 1rem;
+  }
+  .scene-name {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.7rem; letter-spacing: 0.2em;
+    color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+  }
+  .scene-palette {
+    background: white; padding: 1rem;
+    display: flex; gap: 0.5rem; align-items: center;
+  }
+  .scene-dot {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+
+  /* ── preview cards ── */
+  .preview-card {
+    background: white;
+    border: 1px solid var(--border-light);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .preview-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+  .preview-kana {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.6rem; letter-spacing: 0.3em;
+    color: var(--ryukyu-blue); opacity: 0.7;
+  }
+  .preview-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.25rem; font-weight: 700;
+    letter-spacing: 0.08em;
+    margin: 0.5rem 0;
+  }
+  .preview-text {
+    color: var(--text-secondary);
+    font-size: 0.88rem; line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .preview-stamp {
+    display: inline-flex; align-items:center; justify-content:center;
+    width: 44px; height: 44px;
+    border: 1px solid var(--vermillion);
+    border-radius: 50%;
+    color: var(--vermillion);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.85rem; font-weight: 700;
+    transform: rotate(-8deg);
+  }
+  .preview-btn {
+    display: inline-block;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 600; font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    padding: 10px 32px;
+    cursor: pointer; text-decoration: none;
+    transition: all 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  .btn-primary {
+    background: var(--vermillion);
+    color: white; border: none;
+  }
+  .btn-primary:hover { filter: brightness(0.9); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--pocari-blue);
+    border: 1px solid var(--pocari-blue);
+  }
+  .btn-outline:hover { background: rgba(0,128,255,0.05); transform: translateY(-1px); }
+
+  /* ── code block ── */
+  .code-block {
+    background: var(--paper);
+    border: 1px solid var(--border-light);
+    padding: 1.5rem;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem; line-height: 2;
+    color: var(--ryukyu-blue);
+  }
+
+  .footer {
+    text-align: center; padding: 3rem 2rem;
+    background: var(--sky-celadon);
+    color: var(--ryukyu-blue);
+    font-size: 0.72rem; letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="nav-logo">SAKURA YUKI</span>
+  <span class="nav-tag">OKINAWA_PALETTE</span>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-kana">オキナワ · カラーパレット</div>
+    <h1 class="hero-title">櫻雪 × 沖繩海</h1>
+    <p class="hero-sub">櫻吹雪落入琉球藍。宣紙白、天青色、寶礦力藍。</p>
+  </div>
+</section>
+
+<!-- ═══════════ 宣紙與基底 ═══════════ -->
+<div class="container">
+  <section class="section">
+    <div class="pbox">
+      <div class="pbox-label">01 · 宣紙與基底</div>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="swatch-color lg" style="background:var(--paper);"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">宣紙白</div>
+            <div class="swatch-desc">主頁面底色</div>
+            <div class="swatch-hex">#faf8f5</div>
+            <div class="swatch-token">--paper</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color lg" style="background:var(--sky-celadon);"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">天青</div>
+            <div class="swatch-desc">區塊背景與邊框</div>
+            <div class="swatch-hex">#c6e3e8</div>
+            <div class="swatch-token">--sky-celadon</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color lg" style="background:var(--ink);"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">墨黑</div>
+            <div class="swatch-desc">主要內文字色</div>
+            <div class="swatch-hex">#1a1a1a</div>
+            <div class="swatch-token">--ink</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color lg" style="background:var(--border-light);"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">淡邊框</div>
+            <div class="swatch-desc">卡片邊框</div>
+            <div class="swatch-hex">#e8e3d8</div>
+            <div class="swatch-token">--border-light</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════ 櫻花與暖色系 ═══════════ -->
+<div class="container">
+  <section class="section" style="padding-top:0;">
+    <div class="pbox" style="background:linear-gradient(135deg, #fff 0%, #fef5f6 100%);">
+      <div class="pbox-label">02 · 櫻花與暖色系</div>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="swatch-color" style="background:var(--sakura-light);"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">薄櫻色</div>
+            <div class="swatch-desc">輕盈點綴 / Hover 背景</div>
+            <div class="swatch-hex">#f7c5cc</div>
+            <div class="swatch-token">--sakura-light</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:var(--sakura-main);"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">櫻吹雪</div>
+            <div class="swatch-desc">圖示 / 視覺焦點</div>
+            <div class="swatch-hex">#eea5b1</div>
+            <div class="swatch-token">--sakura-main</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:var(--vermillion);"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">落櫻緋</div>
+            <div class="swatch-desc">主要 CTA / 印章</div>
+            <div class="swatch-hex">#c44536</div>
+            <div class="swatch-token">--vermillion</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════ 寶礦力水感藍系 ═══════════ -->
+<div class="container">
+  <section class="section" style="padding-top:0;">
+    <div class="pbox" style="background:linear-gradient(135deg, #fff 0%, #f2f9fc 100%);">
+      <div class="pbox-label">03 · 寶礦力水感藍系</div>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="swatch-color" style="background:var(--seafoam);"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">水景淡</div>
+            <div class="swatch-desc">水沫底色</div>
+            <div class="swatch-hex">#d4f1f9</div>
+            <div class="swatch-token">--seafoam</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:var(--pocari-blue);"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">水晶藍</div>
+            <div class="swatch-desc">寶礦力極致動態藍 · 核心</div>
+            <div class="swatch-hex">#0080ff</div>
+            <div class="swatch-token">--pocari-blue</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:var(--ryukyu-blue);"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">琉球藍</div>
+            <div class="swatch-desc">導覽 / 標題 / 骨幹</div>
+            <div class="swatch-hex">#3a7ca5</div>
+            <div class="swatch-token">--ryukyu-blue</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:var(--deep-ocean);"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">深海藍</div>
+            <div class="swatch-desc">Footer / 深色區塊</div>
+            <div class="swatch-hex">#2c5f7c</div>
+            <div class="swatch-token">--deep-ocean</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:var(--border-blue);"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">藍邊框</div>
+            <div class="swatch-desc">海洋色邊框 / 分隔</div>
+            <div class="swatch-hex">#a8e6f0</div>
+            <div class="swatch-token">--border-blue</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════ 文字層級 ═══════════ -->
+<div class="container">
+  <section class="section" style="padding-top:0;">
+    <div class="pbox">
+      <div class="pbox-label">04 · 文字與邊框</div>
+      <div class="swatch-grid">
+        <div class="swatch">
+          <div class="swatch-color" style="background:var(--text-primary);"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">主文字</div>
+            <div class="swatch-desc">內文、標題</div>
+            <div class="swatch-hex">#1a1a1a</div>
+            <div class="swatch-token">--text-primary</div>
+          </div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" style="background:var(--text-secondary);"></div>
+          <div class="swatch-info">
+            <div class="swatch-name">次文字</div>
+            <div class="swatch-desc">輔助說明、日期</div>
+            <div class="swatch-hex">#5a5a5a</div>
+            <div class="swatch-token">--text-secondary</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════ 色票全景 ═══════════ -->
+<div class="container">
+  <section class="section" style="padding-top:0;">
+    <div class="section-header">
+      <div class="sec-label">いちらん</div>
+      <div class="sec-title">色票全景</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="pbox">
+      <div style="display:flex; gap:0;">
+        <div style="flex:1; height:60px; background:var(--paper);" title="宣紙白"></div>
+        <div style="flex:1; height:60px; background:var(--sky-celadon);" title="天青"></div>
+        <div style="flex:1; height:60px; background:var(--seafoam);" title="水景淡"></div>
+        <div style="flex:1; height:60px; background:var(--border-blue);" title="藍邊框"></div>
+        <div style="flex:1; height:60px; background:var(--pocari-blue);" title="水晶藍"></div>
+        <div style="flex:1; height:60px; background:var(--ryukyu-blue);" title="琉球藍"></div>
+        <div style="flex:1; height:60px; background:var(--deep-ocean);" title="深海藍"></div>
+        <div style="flex:1; height:60px; background:var(--sakura-light);" title="薄櫻色"></div>
+        <div style="flex:1; height:60px; background:var(--sakura-main);" title="櫻吹雪"></div>
+        <div style="flex:1; height:60px; background:var(--vermillion);" title="落櫻緋"></div>
+        <div style="flex:1; height:60px; background:var(--ink);" title="墨黑"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════ 場景配色 ═══════════ -->
+<div class="container">
+  <section class="section" style="padding-top:0;">
+    <div class="section-header">
+      <div class="sec-label">シーン</div>
+      <div class="sec-title">場景配色示範</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="scene-grid">
+      <div class="scene-card">
+        <div class="scene-banner" style="background:linear-gradient(180deg,var(--seafoam),var(--pocari-blue));">
+          <span class="scene-name">浅瀬 · 浮潛</span>
+        </div>
+        <div class="scene-palette">
+          <div class="scene-dot" style="background:var(--seafoam);"></div>
+          <div class="scene-dot" style="background:var(--border-blue);"></div>
+          <div class="scene-dot" style="background:var(--pocari-blue);"></div>
+          <div class="scene-dot" style="background:var(--ryukyu-blue);"></div>
+          <div class="scene-dot" style="background:var(--sakura-light);"></div>
+          <span style="font-size:0.65rem;color:var(--text-secondary);margin-left:auto;">清透 · 活潑</span>
+        </div>
+      </div>
+      <div class="scene-card">
+        <div class="scene-banner" style="background:linear-gradient(180deg,var(--sky-celadon),var(--deep-ocean));">
+          <span class="scene-name">青の洞窟 · 神秘</span>
+        </div>
+        <div class="scene-palette">
+          <div class="scene-dot" style="background:var(--sky-celadon);"></div>
+          <div class="scene-dot" style="background:var(--ryukyu-blue);"></div>
+          <div class="scene-dot" style="background:var(--deep-ocean);"></div>
+          <div class="scene-dot" style="background:var(--vermillion);"></div>
+          <div class="scene-dot" style="background:var(--pocari-blue);"></div>
+          <span style="font-size:0.65rem;color:var(--text-secondary);margin-left:auto;">深邃 · 神聖</span>
+        </div>
+      </div>
+      <div class="scene-card">
+        <div class="scene-banner" style="background:linear-gradient(180deg,var(--sakura-light),var(--sakura-main));">
+          <span class="scene-name">桜 · 櫻吹雪</span>
+        </div>
+        <div class="scene-palette">
+          <div class="scene-dot" style="background:var(--paper);"></div>
+          <div class="scene-dot" style="background:var(--sakura-light);"></div>
+          <div class="scene-dot" style="background:var(--sakura-main);"></div>
+          <div class="scene-dot" style="background:var(--vermillion);"></div>
+          <div class="scene-dot" style="background:var(--sky-celadon);"></div>
+          <span style="font-size:0.65rem;color:var(--text-secondary);margin-left:auto;">溫柔 · 品牌</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════ 實際套用預覽 ═══════════ -->
+<div class="container">
+  <section class="section" style="padding-top:0;">
+    <div class="section-header">
+      <div class="sec-label">プレビュー</div>
+      <div class="sec-title">預覽 · 卡片與按鈕</div>
+      <div class="sec-line"></div>
+    </div>
+
+    <!-- 方案卡 -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+      <div class="preview-card">
+        <div class="preview-kana">ベーシック</div>
+        <div class="preview-title">龍洞體驗潛水</div>
+        <div style="font-family:'Noto Serif TC',serif;font-size:1.3rem;font-weight:700;color:var(--ink);margin:0.4rem 0;">NT$13,900 起</div>
+        <div class="preview-text">
+          — 全套裝備 + 保險<br>
+          — 水下攝影留念<br>
+          — 交通接駁<br>
+          — 一對一教練
+        </div>
+        <button class="preview-btn btn-outline" style="width:100%;text-align:center;">了解方案</button>
+      </div>
+      <div class="preview-card" style="border-color:var(--border-blue);">
+        <div class="preview-kana" style="color:var(--pocari-blue);">プレミアム</div>
+        <div class="preview-title">沖繩青洞 · 四天三夜</div>
+        <div style="font-family:'Noto Serif TC',serif;font-size:1.3rem;font-weight:700;color:var(--pocari-blue);margin:0.4rem 0;">NT$28,900 起</div>
+        <div class="preview-text">
+          — 機票 + 住宿 + 潛水<br>
+          — 真栄田岬青之洞窟<br>
+          — 鯨鯊共游體驗<br>
+          — 四天三夜全程陪同
+        </div>
+        <button class="preview-btn btn-primary" style="width:100%;text-align:center;">立即報名</button>
+      </div>
+    </div>
+
+    <!-- 單卡＋印章 -->
+    <div class="preview-card" style="margin-top:1.5rem;">
+      <div style="display:flex; gap:1.5rem; align-items:flex-start;">
+        <div style="flex:1;">
+          <div class="preview-kana">さくらトク</div>
+          <div class="preview-title">櫻雪毒友優惠</div>
+          <div class="preview-text">
+            舊生回歸、四人揪團每人折 NT$1,000。<br>
+            曾參加櫻雪任何活動即享終身毒友價。
+          </div>
+          <button class="preview-btn btn-primary">查看優惠</button>
+        </div>
+        <div class="preview-stamp">毒</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════ 使用建議 ═══════════ -->
+<div class="container">
+  <section class="section" style="padding-top:0;">
+    <div class="section-header">
+      <div class="sec-label">ガイド</div>
+      <div class="sec-title">使用建議</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="pbox">
+      <table class="usage-table">
+        <thead>
+          <tr><th>Token</th><th>色票</th><th>建議用途</th><th>注意</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;">--pocari-blue</td>
+            <td><span class="usage-dot" style="background:var(--pocari-blue);"></span> #0080ff</td>
+            <td>核心動態色 · 連結、次要 CTA、hover、highlight</td>
+            <td>高飽和，小面積使用</td>
+          </tr>
+          <tr>
+            <td style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;">--vermillion</td>
+            <td><span class="usage-dot" style="background:var(--vermillion);"></span> #c44536</td>
+            <td>主要 CTA · 印章 · 分隔線</td>
+            <td>與 Pocari Blue 互為動靜</td>
+          </tr>
+          <tr>
+            <td style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;">--sakura-light</td>
+            <td><span class="usage-dot" style="background:var(--sakura-light);"></span> #f7c5cc</td>
+            <td>hover 背景 · 櫻花區塊底色</td>
+            <td>⚠ 僅作背景色，不可用於文字/icon</td>
+          </tr>
+          <tr>
+            <td style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;">--sakura-main</td>
+            <td><span class="usage-dot" style="background:var(--sakura-main);"></span> #eea5b1</td>
+            <td>圖示 · 視覺焦點 · 品牌 icon</td>
+            <td>對比度足夠，可作前景</td>
+          </tr>
+          <tr>
+            <td style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;">--seafoam</td>
+            <td><span class="usage-dot" style="background:var(--seafoam);"></span> #d4f1f9</td>
+            <td>Hero 大面積底色</td>
+            <td>僅大區塊使用</td>
+          </tr>
+          <tr>
+            <td style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;">--sky-celadon</td>
+            <td><span class="usage-dot" style="background:var(--sky-celadon);"></span> #c6e3e8</td>
+            <td>區塊背景 · 邊框替代</td>
+            <td>可兼任邊框色</td>
+          </tr>
+          <tr>
+            <td style="font-family:'JetBrains Mono',monospace;font-size:0.68rem;">--border-blue</td>
+            <td><span class="usage-dot" style="background:var(--border-blue);"></span> #a8e6f0</td>
+            <td>海洋色邊框 · 分隔</td>
+            <td>與 sky-celadon 可互換</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════ CSS 變數 ═══════════ -->
+<div class="container">
+  <section class="section" style="padding-top:0;">
+    <div class="section-header">
+      <div class="sec-label">コード</div>
+      <div class="sec-title">CSS Variables</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="code-block">
+:root {
+  /* ═══ 宣紙與基底 ═══ */
+  --paper:               #faf8f5;   /* 宣紙白 · 主頁面底色 */
+  --sky-celadon:         #c6e3e8;   /* 天青 · 區塊背景與邊框 */
+  --ink:                 #1a1a1a;   /* 墨黑 · 主要內文字色 */
+
+  /* ═══ 櫻花與暖色系 ═══ */
+  --sakura-light:        #f7c5cc;   /* 薄櫻色 · 輕盈點綴 / Hover */
+  --sakura-main:         #eea5b1;   /* 櫻吹雪 · 圖示 / 視覺焦點 */
+  --vermillion:          #c44536;   /* 落櫻緋 · 主要 CTA / 印章 */
+
+  /* ═══ 寶礦力水感藍系 ═══ */
+  --seafoam:             #d4f1f9;   /* 水景淡 · 水沫底色 */
+  --pocari-blue:         #0080ff;   /* 水晶藍 · 核心動態藍 */
+  --ryukyu-blue:         #3a7ca5;   /* 琉球藍 · 導覽 / 標題 / 骨幹 */
+  --deep-ocean:          #2c5f7c;   /* 深海藍 · Footer / 深色區塊 */
+
+  /* ═══ 文字與邊框 ═══ */
+  --text-primary:        #1a1a1a;
+  --text-secondary:      #5a5a5a;
+  --border-light:        #e8e3d8;
+  --border-blue:         #a8e6f0;
+}
+    </div>
+  </section>
+</div>
+
+<footer class="footer">
+  SAKURA YUKI · 沖繩海色盤<br>
+  櫻吹雪落入琉球藍 · 從一片白，潛入一片藍
+</footer>
+
+</body>
+</html>

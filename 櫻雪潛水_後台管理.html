@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>櫻雪潛水中心 — 內容管理後台</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;600;700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',sans-serif;background:#faf8f5;color:#1a1a1a;line-height:1.7}
+  
+  .topbar{background:#2c5f7c;color:white;padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;flex-wrap:wrap;gap:0.75rem}
+  .topbar h1{font-family:'Noto Serif TC',serif;font-size:1rem;font-weight:600}
+  .btn{padding:10px 24px;border-radius:8px;font-size:0.82rem;font-weight:600;cursor:pointer;border:none;letter-spacing:0.04em;transition:all 0.2s}
+  .btn-red{background:#c44536;color:white}.btn-red:hover{filter:brightness(0.9)}
+  .btn-white{background:white;color:#1a1a1a}.btn-white:hover{background:#eee}
+  
+  .wrap{max-width:860px;margin:0 auto;padding:1.5rem}
+  .card{background:white;border:1px solid #e8e3d8;border-radius:12px;padding:1.5rem;margin-bottom:1.25rem}
+  .card h3{font-family:'Noto Serif TC',serif;font-size:1rem;font-weight:600;margin-bottom:0.5rem}
+  .card .hint{font-size:0.75rem;color:#5a5a5a;margin-bottom:1rem}
+  
+  label{display:block;font-size:0.75rem;font-weight:600;color:#5a5a5a;margin:0.75rem 0 0.25rem;letter-spacing:0.04em}
+  input[type="text"],input[type="url"],textarea{width:100%;padding:10px 14px;border:1px solid #e8e3d8;border-radius:8px;font-family:inherit;font-size:0.85rem;background:#faf8f5;color:#1a1a1a}
+  textarea{min-height:70px;resize:vertical}
+  input:focus,textarea:focus{outline:none;border-color:#0080ff}
+  
+  .img-box{display:inline-flex;flex-direction:column;align-items:center;gap:0.4rem;margin:0.5rem 0.75rem 0.5rem 0;vertical-align:top}
+  .img-thumb{width:140px;height:90px;border:1px dashed #e8e3d8;border-radius:8px;background:#faf8f5;background-size:cover;background-position:center;cursor:pointer;position:relative}
+  .img-thumb .rm{position:absolute;top:3px;right:3px;width:18px;height:18px;border-radius:50%;background:#c44536;color:white;font-size:0.6rem;display:none;align-items:center;justify-content:center;cursor:pointer}
+  .img-thumb:hover .rm{display:flex}
+  .img-thumb .txt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:#5a5a5a;pointer-events:none}
+  .img-label{font-size:0.68rem;color:#5a5a5a;text-align:center}
+  
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media(max-width:600px){.row2{grid-template-columns:1fr}}
+  
+  .faq-row{display:flex;gap:0.5rem;align-items:flex-start;margin-bottom:0.5rem;background:#faf8f5;padding:0.75rem;border-radius:8px}
+  .faq-row input,.faq-row textarea{flex:1;min-width:0}
+  .faq-row button{background:none;border:none;color:#c44536;cursor:pointer;font-size:1rem;padding:4px 8px;flex-shrink:0}
+  
+  .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:#1a1a1a;color:white;padding:12px 28px;border-radius:50px;font-size:0.85rem;opacity:0;transition:opacity 0.3s;z-index:100;pointer-events:none}
+  .toast.show{opacity:1}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>🌊 櫻雪潛水中心 · 內容管理</h1>
+  <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+    <button class="btn btn-white" onclick="window.open('櫻雪旅行社_潛水服務.html','_blank')">🔍 預覽網站</button>
+    <button class="btn btn-red" onclick="saveAll()">💾 儲存全部</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- HERO -->
+<div class="card">
+  <h3>🏠 HERO 首屏</h3>
+  <div class="row2">
+    <div>
+      <label>主標語第一行</label><input type="text" id="hero1" value="從一片白，">
+      <label>主標語第二行</label><input type="text" id="hero2" value="潛入一片藍。">
+      <label>副標</label><input type="text" id="heroSub" value="PADI 五星潛水中心 · 台北仁愛訓練 · 東北角龍洞或沖繩青之洞窟拿證">
+    </div>
+    <div>
+      <label>HERO 背景圖</label>
+      <div class="img-box">
+        <div class="img-thumb" id="heroImg" style="background-image:url('sy-dive-images/hero.jpg')" onclick="document.getElementById('heroImgIn').click()"><span class="txt">點擊換圖</span></div>
+        <input type="file" id="heroImgIn" accept="image/*" style="display:none" onchange="prev(this,'heroImg')">
+        <span class="img-label">主視覺</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 方案 -->
+<div class="card">
+  <h3>💰 方案定價</h3>
+  <div class="row2">
+    <div>
+      <label>龍洞方案價格</label>
+      <div style="display:flex;align-items:center;gap:0.3rem"><span>NT$</span><input type="text" id="pTW" value="13,900" style="width:100px"><span>起</span></div>
+      <label>龍洞方案說明</label><input type="text" id="dTW" value="仁愛游泳池 ×2 ＋ 龍洞開放水域 ×1 ＋ PADI 執照 ＋ 裝備 ＋ 保險">
+    </div>
+    <div>
+      <label>沖繩方案價格</label>
+      <div style="display:flex;align-items:center;gap:0.3rem"><span>NT$</span><input type="text" id="pOK" value="28,900" style="width:100px"><span>起</span></div>
+      <label>沖繩方案說明</label><input type="text" id="dOK" value="仁愛游泳池 ×2 ＋ 沖繩藍洞 ×1 ＋ 機票 ＋ 住宿 3 晚 ＋ PADI 執照 ＋ 裝備 ＋ 保險 ＋ 水中攝影">
+    </div>
+  </div>
+</div>
+
+<!-- 據點圖片 -->
+<div class="card">
+  <h3>📍 據點圖片</h3>
+  <div style="display:flex;flex-wrap:wrap">
+    <div class="img-box">
+      <div class="img-thumb" id="loc1" style="background-image:url('sy-dive-images/loc-pool.jpg')" onclick="document.getElementById('loc1in').click()"><span class="rm" onclick="event.stopPropagation();clr('loc1')">x</span></div>
+      <input type="file" id="loc1in" accept="image/*" style="display:none" onchange="prev(this,'loc1')">
+      <span class="img-label">仁愛游泳池</span>
+    </div>
+    <div class="img-box">
+      <div class="img-thumb" id="loc2" style="background-image:url('sy-dive-images/loc-longdong.jpg')" onclick="document.getElementById('loc2in').click()"><span class="rm" onclick="event.stopPropagation();clr('loc2')">x</span></div>
+      <input type="file" id="loc2in" accept="image/*" style="display:none" onchange="prev(this,'loc2')">
+      <span class="img-label">東北角龍洞</span>
+    </div>
+    <div class="img-box">
+      <div class="img-thumb" id="loc3" style="background-image:url('sy-dive-images/loc-okinawa.jpg')" onclick="document.getElementById('loc3in').click()"><span class="rm" onclick="event.stopPropagation();clr('loc3')">x</span></div>
+      <input type="file" id="loc3in" accept="image/*" style="display:none" onchange="prev(this,'loc3')">
+      <span class="img-label">沖繩青之洞窟</span>
+    </div>
+  </div>
+</div>
+
+<!-- 其他圖片 -->
+<div class="card">
+  <h3>🖼️ 其他圖片</h3>
+  <div style="display:flex;flex-wrap:wrap">
+    <div class="img-box"><div class="img-thumb" id="i1" style="background-image:url('sy-dive-images/dual.jpg')" onclick="document.getElementById('i1in').click()"><span class="rm" onclick="event.stopPropagation();clr('i1')">x</span></div><input type="file" id="i1in" accept="image/*" style="display:none" onchange="prev(this,'i1')"><span class="img-label">冬雪夏水</span></div>
+    <div class="img-box"><div class="img-thumb" id="i2" style="background-image:url('sy-dive-images/family.jpg')" onclick="document.getElementById('i2in').click()"><span class="rm" onclick="event.stopPropagation();clr('i2')">x</span></div><input type="file" id="i2in" accept="image/*" style="display:none" onchange="prev(this,'i2')"><span class="img-label">親子</span></div>
+    <div class="img-box"><div class="img-thumb" id="i3" style="background-image:url('sy-dive-images/coach-hero.jpg')" onclick="document.getElementById('i3in').click()"><span class="rm" onclick="event.stopPropagation();clr('i3')">x</span></div><input type="file" id="i3in" accept="image/*" style="display:none" onchange="prev(this,'i3')"><span class="img-label">教練團隊</span></div>
+    <div class="img-box"><div class="img-thumb" id="i4" style="background-image:url('sy-dive-images/taiwan-spot.jpg')" onclick="document.getElementById('i4in').click()"><span class="rm" onclick="event.stopPropagation();clr('i4')">x</span></div><input type="file" id="i4in" accept="image/*" style="display:none" onchange="prev(this,'i4')"><span class="img-label">台灣潛點</span></div>
+    <div class="img-box"><div class="img-thumb" id="i5" style="background-image:url('sy-dive-images/cert-new.jpg')" onclick="document.getElementById('i5in').click()"><span class="rm" onclick="event.stopPropagation();clr('i5')">x</span></div><input type="file" id="i5in" accept="image/*" style="display:none" onchange="prev(this,'i5')"><span class="img-label">考證</span></div>
+  </div>
+</div>
+
+<!-- LOGO -->
+<div class="card">
+  <h3>🏷️ 品牌 LOGO</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:2rem">
+    <div class="img-box">
+      <div class="img-thumb" id="logoNav" style="background-image:url('sy-dive-images/LOGO.png');background-size:contain;background-repeat:no-repeat;background-position:center;width:200px" onclick="document.getElementById('logoIn').click()"><span class="txt">點擊上傳</span></div>
+      <input type="file" id="logoIn" accept="image/*" style="display:none" onchange="prev(this,'logoNav')">
+      <span class="img-label">導覽列 LOGO</span>
+    </div>
+  </div>
+</div>
+
+<!-- 文字 -->
+<div class="card">
+  <h3>📝 常用文字</h3>
+  <label>游泳池地址規格</label><input type="text" id="poolAddr" value="台北市大安區仁愛路四段 130 號 · 9 水道 · 25m · 水深 1.2m · 全年恆溫 · 免戴泳帽">
+  <label>沖繩據點地址</label><input type="text" id="okiAddr" value="〒904-0416 沖縄県国頭郡恩納村山田 591-1">
+  <label>電話 / Email</label><input type="text" id="contact" value="0966-777737 · sysportclub@gmail.com">
+  <label>LINE ID</label><input type="text" id="lineID" value="@sydiving">
+  <label>LINE 連結</label><input type="url" id="lineURL" value="https://lin.ee/U08gDqx">
+  <label>優惠文字</label><input type="text" id="discount" value="揪團 4 人以上每人折 1,000 · 舊毒友再折 300 · 最多折 1,300">
+</div>
+
+<!-- FAQ -->
+<div class="card">
+  <h3>❓ 常見問題 FAQ</h3>
+  <div id="faqBox"></div>
+  <button class="btn btn-white" style="margin-top:0.5rem;border:1px solid #e8e3d8" onclick="addFaq()">＋ 新增問題</button>
+</div>
+
+</div>
+
+<div class="toast" id="toast">💾 已儲存</div>
+
+<script>
+// Image preview
+function prev(input, targetId) {
+  var file = input.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    document.getElementById(targetId).style.backgroundImage = 'url(' + e.target.result + ')';
+    document.getElementById(targetId).dataset.file = file.name;
+  };
+  reader.readAsDataURL(file);
+}
+function clr(targetId) {
+  document.getElementById(targetId).style.backgroundImage = 'none';
+  document.getElementById(targetId).dataset.file = '';
+}
+
+// FAQ management
+var faqs = [
+  {q:'不會游泳，可以學潛水嗎？',a:'可以。PADI 只要求不靠漂浮器材在水面待 10 分鐘，並能連續游泳 200 公尺（不限姿勢、不限時間）。'},
+  {q:'近視可以潛水嗎？',a:'可以。戴隱形眼鏡下水，或租用有度數的面鏡。報名時備註度數即可。'},
+  {q:'PADI 證照有期限嗎？',a:'終身有效，全球通用。若超過半年未潛水，建議先參加 Refresher 複習課程。'},
+  {q:'有年齡限制嗎？',a:'最低 10 歲可取得 Junior OW 證照，15 歲以上可取得標準 OW 證照。'},
+  {q:'沖繩考證需要幾天？',a:'沖繩方案為 4 天 3 夜。包含台北游泳池訓練、沖繩開放水域考核、機票住宿。'},
+  {q:'需要自己準備裝備嗎？',a:'不需要。課程費用已含全套潛水裝備使用。若自有裝備可折抵部分費用。'},
+];
+
+function renderFaqs() {
+  var box = document.getElementById('faqBox');
+  var html = '';
+  for (var i = 0; i < faqs.length; i++) {
+    html += '<div class="faq-row">';
+    html += '<div style="flex:1;min-width:0">';
+    html += '<input type="text" value="' + escHtml(faqs[i].q) + '" placeholder="問題" style="margin-bottom:4px;font-weight:600" data-idx="' + i + '" data-field="q">';
+    html += '<textarea placeholder="回答" data-idx="' + i + '" data-field="a">' + escHtml(faqs[i].a) + '</textarea>';
+    html += '</div>';
+    html += '<button data-rm="' + i + '">✕</button>';
+    html += '</div>';
+  }
+  box.innerHTML = html;
+  
+  // Bind events
+  var inputs = box.querySelectorAll('input[data-idx]');
+  for (var j = 0; j < inputs.length; j++) {
+    inputs[j].onchange = function() {
+      faqs[parseInt(this.dataset.idx)][this.dataset.field] = this.value;
+    };
+  }
+  var textareas = box.querySelectorAll('textarea[data-idx]');
+  for (var k = 0; k < textareas.length; k++) {
+    textareas[k].onchange = function() {
+      faqs[parseInt(this.dataset.idx)][this.dataset.field] = this.value;
+    };
+  }
+  var btns = box.querySelectorAll('button[data-rm]');
+  for (var m = 0; m < btns.length; m++) {
+    btns[m].onclick = function() {
+      faqs.splice(parseInt(this.dataset.rm), 1);
+      renderFaqs();
+    };
+  }
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function addFaq() {
+  faqs.push({q:'',a:''});
+  renderFaqs();
+}
+
+renderFaqs();
+
+// Save
+function saveAll() {
+  var data = {
+    hero1: document.getElementById('hero1').value,
+    hero2: document.getElementById('hero2').value,
+    heroSub: document.getElementById('heroSub').value,
+    pTW: document.getElementById('pTW').value,
+    pOK: document.getElementById('pOK').value,
+    dTW: document.getElementById('dTW').value,
+    dOK: document.getElementById('dOK').value,
+    poolAddr: document.getElementById('poolAddr').value,
+    okiAddr: document.getElementById('okiAddr').value,
+    contact: document.getElementById('contact').value,
+    lineID: document.getElementById('lineID').value,
+    lineURL: document.getElementById('lineURL').value,
+    discount: document.getElementById('discount').value,
+    faqs: faqs,
+    savedAt: new Date().toISOString()
+  };
+  
+  localStorage.setItem('sydive_admin', JSON.stringify(data));
+  
+  // Download backup
+  var blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'sydive-backup-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  
+  var toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(function(){ toast.classList.remove('show'); }, 2000);
+}
+
+// Load saved data
+(function(){
+  var raw = localStorage.getItem('sydive_admin');
+  if (!raw) return;
+  try {
+    var d = JSON.parse(raw);
+    var fields = ['hero1','hero2','heroSub','pTW','pOK','dTW','dOK','poolAddr','okiAddr','contact','lineID','lineURL','discount'];
+    for (var i = 0; i < fields.length; i++) {
+      var el = document.getElementById(fields[i]);
+      if (el && d[fields[i]]) el.value = d[fields[i]];
+    }
+    if (d.faqs) { faqs = d.faqs; renderFaqs(); }
+  } catch(e) {}
+})();
+</script>
+
+</body>
+</html>
