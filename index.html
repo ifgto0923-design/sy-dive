@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>櫻雪潛水中心 SY Diving | PADI 五星 · 台北仁愛＋沖繩青洞</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+  :root {
+    --paper:          #faf8f5;
+    --sky-celadon:    #c6e3e8;
+    --ink:            #1a1a1a;
+    --sakura-light:   #f7c5cc;
+    --sakura-main:    #eea5b1;
+    --vermillion:     #c44536;
+    --seafoam:        #d4f1f9;
+    --pocari-blue:    #0080ff;
+    --ryukyu-blue:    #3a7ca5;
+    --deep-ocean:     #2c5f7c;
+    --text-primary:   #1a1a1a;
+    --text-secondary: #5a5a5a;
+    --border-light:   #e8e3d8;
+    --border-blue:    #a8e6f0;
+    --white:          #ffffff;
+    --gold:           #b8956a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 17px; }
+  body {
+    font-family: 'Noto Sans TC', 'Noto Sans JP', sans-serif;
+    background: var(--paper);
+    color: var(--text-primary);
+    line-height: 1.85;
+    letter-spacing: 0.02em;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(58,124,165,0.96);
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-light);
+    padding: 0 2rem; height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo img { height: 34px; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.82rem; color: rgba(255,255,255,0.85);
+    text-decoration: none; letter-spacing: 0.08em;
+    transition: color 0.3s; position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+    height: 1px; background: var(--vermillion);
+    transform: scaleX(0); transition: transform 0.3s cubic-bezier(0.25,0.1,0.25,1);
+  }
+  .nav-links a:hover { color: rgba(255,255,255,1); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-cta {
+    padding: 8px 20px !important;
+    background: var(--vermillion) !important;
+    color: white !important;
+    border-radius: 50px;
+    font-weight: 600 !important;
+  }
+  .nav-cta:hover { filter: brightness(0.9); }
+  .nav-cta::after { display: none !important; }
+  @media (max-width: 768px) { .nav-links { gap: 1rem; } .nav-links a { font-size: 0.72rem; } }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(180deg, var(--seafoam) 0%, var(--sky-celadon) 35%, var(--deep-ocean) 70%, var(--deep-ocean) 100%);
+    overflow: hidden; padding: 6rem 2rem 4rem;
+  }
+  .hero::before {
+    content: ''; position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(0,128,255,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: ''; position: absolute;
+    bottom: -40px; left: -40px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(238,165,177,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-img {
+    position: absolute; inset: 0;
+    background: url('sy-dive-images/主視覺.png') center/cover no-repeat;
+    opacity: 0.35;
+  }
+  .hero-content { position: relative; z-index: 2; text-align: center; max-width: 800px; padding: 0 2rem; }
+  .hero-kana {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.7rem; letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.7); margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 700;
+    color: white; line-height: 1.5; letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+  .hero h1 em { font-style: normal; color: #f0c080; }
+  .hero p {
+    font-size: 1rem; color: rgba(255,255,255,0.7); font-weight: 300;
+    letter-spacing: 0.06em; margin-bottom: 2.5rem;
+  }
+  .hero-meta {
+    display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+  .hero-meta-item {
+    display: flex; align-items: center; gap: 0.4rem;
+    color: rgba(255,255,255,0.65); font-size: 0.85rem;
+  }
+  .hero-meta-item strong { color: white; font-weight: 600; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    padding: 13px 36px; font-family: 'Noto Serif TC', serif;
+    font-size: 0.88rem; font-weight: 600; letter-spacing: 0.08em;
+    text-decoration: none; cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.25,0.1,0.25,1);
+  }
+  .btn-primary { background: var(--vermillion); color: white; border: none; }
+  .btn-primary:hover { filter: brightness(0.9); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(196,69,54,0.2); }
+  .btn-outline { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.4); }
+  .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.06); transform: translateY(-1px); }
+  .btn-line { background: transparent; color: var(--pocari-blue); border: 1px solid var(--pocari-blue); }
+  .btn-line:hover { background: rgba(0,128,255,0.05); transform: translateY(-1px); }
+  .btn-dark { background: var(--ink); color: var(--paper); border: none; }
+  .btn-dark:hover { background: #333; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+
+  .scroll-hint {
+    position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+    color: rgba(255,255,255,0.35); font-family: 'Noto Serif TC', serif;
+    font-size: 0.75rem; letter-spacing: 0.15em;
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+  /* ── SECTIONS ── */
+  section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-kana {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.65rem; letter-spacing: 0.3em;
+    color: var(--ryukyu-blue); opacity: 0.75;
+    text-align: center; margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700;
+    letter-spacing: 0.1em; text-align: center; color: var(--ink);
+  }
+  .section-sub {
+    font-size: 0.9rem; color: var(--text-secondary);
+    text-align: center; max-width: 650px; margin: 0 auto 2.5rem;
+    letter-spacing: 0.04em;
+  }
+  .sec-line { width: 36px; height: 1px; background: var(--vermillion); margin: 0.75rem auto 1.5rem; }
+
+  /* ── LOCATION CARDS ── */
+  .loc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.75rem; }
+  @media (max-width: 768px) { .loc-grid { grid-template-columns: 1fr; } }
+  .loc-card {
+    background: var(--white); border: 1px solid var(--border-light);
+    overflow: hidden; transition: all 0.35s cubic-bezier(0.25,0.1,0.25,1);
+  }
+  .loc-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.04); border-color: var(--pocari-blue); }
+  .loc-header {
+    padding: 1.5rem 1.75rem 0;
+    display: flex; align-items: flex-start; gap: 1rem;
+  }
+  .loc-icon {
+    width: 48px; height: 48px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Noto Serif TC', serif; font-weight: 700; font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .loc-icon.tpe { background: rgba(238,165,177,0.2); color: var(--vermillion); }
+  .loc-icon.ld { background: rgba(58,124,165,0.15); color: var(--ryukyu-blue); }
+  .loc-icon.oki { background: rgba(0,128,255,0.12); color: var(--pocari-blue); }
+  .loc-body { padding: 0.75rem 1.75rem 1.75rem; }
+  .loc-badge {
+    display: inline-block; padding: 4px 12px; border-radius: 50px;
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em;
+    margin-bottom: 0.5rem;
+  }
+  .badge-tpe { background: rgba(238,165,177,0.15); color: var(--vermillion); }
+  .badge-taiwan { background: rgba(58,124,165,0.12); color: var(--ryukyu-blue); }
+  .badge-oki { background: rgba(0,128,255,0.1); color: var(--pocari-blue); }
+  .loc-body h3 { font-family: 'Noto Serif TC', serif; font-size: 1.15rem; font-weight: 700; color: var(--ink); letter-spacing: 0.05em; margin-bottom: 0.25rem; }
+  .loc-body .jp { font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 0.75rem; }
+  .loc-body p { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7; }
+  .loc-address {
+    margin-top: 1rem; padding: 0.75rem 1rem;
+    background: var(--paper); border: 1px solid var(--border-light);
+    font-size: 0.76rem; color: var(--text-secondary); line-height: 1.6;
+    font-family: 'Noto Sans JP', 'Noto Sans TC', sans-serif;
+  }
+
+  /* ── FEATURES ── */
+  .feats { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+  .feat { text-align: center; padding: 1rem 1.5rem; }
+  .feat .num{font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-size:0.95rem;font-weight:700;color:var(--ink);width:52px;height:52px;border:1px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 0.5rem;transition:all 0.3s}
+    .feat:hover .num{border-color:var(--pocari-blue);color:var(--pocari-blue)}
+    .feat .lbl{font-size:0.75rem;color:var(--text-secondary);margin-top:0.2rem;letter-spacing:0.06em}
+
+  /* ── PADI PATHWAY ── */
+  .pathway-wrap { background: linear-gradient(180deg, var(--paper) 0%, var(--seafoam) 50%, var(--paper) 100%); padding: 5rem 2rem; }
+  .pathway-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+  .step-row { display: flex; gap: 0; justify-content: center; flex-wrap: wrap; margin-top: 2.5rem; }
+  .stp { flex: 1; min-width: 160px; max-width: 240px; position: relative; padding: 1.5rem 0.75rem; }
+  .stp-circle {
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1rem; font-size: 1.3rem; font-weight: 700;
+    color: white; font-family: 'Noto Serif TC', serif;
+  }
+  .stp-circle.c1 { background: var(--sakura-main); }
+  .stp-circle.c2 { background: var(--sakura-main); }
+  .stp-circle.c3 { background: var(--pocari-blue); }
+  .stp-arrow { position: absolute; top: 28px; right: -15px; font-size: 1.3rem; color: var(--ryukyu-blue); opacity: 0.5; }
+  .stp:last-child .stp-arrow { display: none; }
+  .stp h4 { font-family: 'Noto Serif TC', serif; font-size: 0.95rem; font-weight: 600; color: var(--ink); margin-bottom: 0.3rem; }
+  .stp .loc { font-size: 0.75rem; color: var(--ryukyu-blue); font-weight: 600; margin-bottom: 0.3rem; }
+  .stp p { font-size: 0.8rem; color: var(--text-secondary); }
+  @media (max-width: 640px) { .stp-arrow { display: none; } .stp { border-bottom: 1px dashed var(--border-light); padding: 1rem; } }
+
+  .cert-badge {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    padding: 16px 32px; background: var(--white);
+    border: 2px solid var(--gold); margin-top: 2rem;
+  }
+  .cert-badge .icon { font-family: 'Noto Serif TC', serif; font-size: 1.8rem; color: var(--gold); }
+  .cert-badge .txt { font-family: 'Noto Serif TC', serif; font-weight: 700; font-size: 1.05rem; color: var(--ink); }
+  .cert-badge .txt small { display: block; font-weight: 400; font-size: 0.7rem; color: var(--text-secondary); }
+
+  /* ── TIMELINE ── */
+  .tl { display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap; margin-top:1.5rem; }
+  .tl-item { text-align:center; padding:1.25rem 1.5rem; min-width:130px; }
+  .tl-item .tl-icon {
+    width:48px; height:48px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 0.6rem;
+    font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif; font-weight:700; font-size:1rem;
+    color:white; background:var(--deep-ocean);
+  }
+  .tl-item .tl-icon.light { background:var(--pocari-blue); }
+  .tl-item .tl-time { font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif; font-size:0.95rem; font-weight:700; color:var(--ink); letter-spacing:0.04em; }
+  .tl-item .tl-act { font-size:0.75rem; color:var(--text-secondary); margin-top:0.2rem; }
+  .tl-summary { text-align:center; margin-top:2rem; padding:1.5rem; background:var(--seafoam); }
+  .tl-summary p { font-size:0.8rem; color:var(--text-secondary); letter-spacing:0.04em; }
+  .tl-summary strong { color:var(--deep-ocean); }
+
+  /* ── POOL ── */
+  .pool-band { background: var(--deep-ocean); color: white; text-align: center; padding: 5rem 2rem; }
+  .pool-band .section-kana { color: rgba(255,255,255,0.4); }
+  .pool-band .section-title { color: white; }
+  .pool-band .sec-line { background: var(--pocari-blue); }
+  .pool-band p { color: rgba(255,255,255,0.55); }
+  .pool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; max-width: 800px; margin: 0 auto; }
+  .pool-item { padding: 1.75rem 1rem; border: 1px solid rgba(255,255,255,0.1); transition: all 0.35s cubic-bezier(0.25,0.1,0.25,1); }
+  .pool-item:hover { border-color: rgba(255,255,255,0.3); }
+  .pool-item .ch { font-family: 'Noto Serif TC', serif; font-size: 1.1rem; font-weight: 600; color: var(--pocari-blue); margin-bottom: 0.25rem; transition: color 0.3s; }
+  .pool-item:hover .ch { color: white; }
+  .pool-item .tx { font-size: 0.75rem; color: rgba(255,255,255,0.5); }
+
+  /* ── SKY BAND ── */
+  .sky-band { background: var(--sky-celadon); padding: 5rem 2rem; text-align: center; }
+  .sky-band .section-title { color: var(--ink); }
+  .sky-band .sec-line { background: var(--vermillion); }
+  .sky-band p { color: var(--text-secondary); }
+
+  /* ── DISCOUNT ── */
+  .discount { text-align: center; padding: 5rem 2rem; background: linear-gradient(180deg, var(--paper) 0%, rgba(247,197,204,0.15) 100%); }
+  .stamp {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 88px; height: 88px; border: 2px solid var(--vermillion);
+    border-radius: 50%; color: var(--vermillion);
+    font-family: 'Noto Serif TC', serif; font-weight: 600;
+    font-size: 0.75rem; letter-spacing: 0.08em;
+    margin-bottom: 1.5rem; line-height: 1.4;
+  }
+  .disc-row { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
+  .disc-card { background: var(--white); padding: 1.5rem 2rem; border: 1px solid var(--border-light); transition: all 0.35s cubic-bezier(0.25,0.1,0.25,1); }
+  .disc-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.04); }
+  .disc-card .amt { font-family: 'Noto Serif TC', serif; font-size: 2rem; font-weight: 700; color: var(--vermillion); }
+  .disc-card .lbl { font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.3rem; }
+
+  /* ── FAQ ── */
+  .faq-item { border-bottom: 1px solid var(--border-light); }
+  .faq-q {
+    font-family: 'Noto Serif TC', serif; font-size: 0.9rem; font-weight: 600;
+    letter-spacing: 0.06em; padding: 1.2rem 0; cursor: pointer;
+    list-style: none; display: flex; justify-content: space-between; align-items: center;
+  }
+  .faq-q::-webkit-details-marker { display: none; }
+  .faq-q::after { content: '+'; font-size: 1.2rem; font-weight: 300; color: var(--text-secondary); transition: transform 0.3s; }
+  details[open] .faq-q::after { content: '−'; transform: rotate(180deg); }
+  .faq-a { font-size: 0.82rem; color: var(--text-secondary); padding: 0 0 1.25rem; line-height: 1.9; }
+
+  /* ── BRAND TREE ── */
+  .brand-tree { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.5rem; font-size: 0.8rem; }
+  .brand-node { padding: 6px 16px; border-radius: 8px; font-weight: 600; font-size: 0.72rem; letter-spacing: 0.04em; }
+  .brand-parent { background: var(--deep-ocean); color: white; }
+  .brand-snow { background: rgba(238,165,177,0.1); color: var(--vermillion); border: 1px solid var(--sakura-main); }
+  .brand-dive { background: var(--vermillion); color: white; }
+  .brand-swim { background: rgba(0,128,255,0.08); color: var(--pocari-blue); border: 1px solid var(--pocari-blue); }
+  .brand-arrow { font-size: 1.1rem; color: var(--text-secondary); }
+
+  /* ── CONTACT ── */
+  .contact { text-align: center; padding: 5rem 2rem; }
+  .contact .logo-foot { height: 36px; margin-bottom: 1.5rem; }
+  .contact-info { font-size: 0.85rem; color: var(--text-secondary); line-height: 2.5; letter-spacing: 0.04em; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--ink); color: rgba(255,255,255,0.35); text-align: center; padding: 3rem 2rem; font-size: 0.72rem; letter-spacing: 0.06em; line-height: 2.2; }
+  .footer-inner { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; text-align: left; }
+  @media(max-width:700px){ .footer-inner { flex-direction: column; text-align: center !important; } .footer-inner div { text-align: center !important; } }
+  footer b { color: rgba(255,255,255,0.55); font-weight: 500; }
+
+  /* ── IMG BAND ── */
+  .img-band { width: 100%; padding: 0; max-width: 100%; }
+  .img-band img { width: 100%; height: auto; display: block; }
+
+  @media (max-width: 640px) {
+    section { padding: 3rem 1.25rem; }
+  }
+
+  .reveal{opacity:0;transform:translateY(20px);transition:all 0.6s cubic-bezier(0.25,0.1,0.25,1)}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+
+  /* ── MOBILE NAV ── */
+  @media(max-width:768px){
+    .nav-links{position:fixed;top:56px;left:0;right:0;background:rgba(58,124,165,0.98);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);flex-direction:column;gap:0;padding:1rem 0;transform:translateY(-120%);transition:transform 0.35s cubic-bezier(0.25,0.1,0.25,1);z-index:99;border-bottom:1px solid var(--border-light)}
+    .nav-links.open{transform:translateY(0)}
+    .nav-links li{width:100%;text-align:center}
+    .nav-links a{display:block;padding:1rem 2rem;font-size:0.9rem;min-height:44px;color:rgba(255,255,255,0.85)}
+    .nav-cta{display:inline-block!important;margin:0.5rem auto}
+  }
+  
+  /* ── HAMBURGER ── */
+  .hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:10px;z-index:101;min-width:44px;min-height:44px;align-items:center;justify-content:center;background:none;border:none}
+  .hamburger span{display:block;width:22px;height:1.5px;background:white;transition:all 0.3s}
+  .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+  .hamburger.open span:nth-child(2){opacity:0}
+  .hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+  @media(min-width:769px){.hamburger{display:none!important}}
+  
+  /* ── TOUCH FEEDBACK ── */
+  .btn:active,.card:active,.loc-card:active,.food-card:active,.disc-card:active{transform:scale(0.97)!important;transition:transform 0.1s!important}
+  .faq-q:active{color:var(--pocari-blue)}
+  a,button,.btn,[onclick]{min-height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center}
+  .nav-links a{min-height:auto}@media(max-width:768px){.nav-links a{min-height:44px}}
+
+
+  .sticky-bar{position:fixed;bottom:0;left:0;right:0;z-index:99;background:rgba(250,248,245,0.96);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--border-light);padding:0.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;transform:translateY(100%);transition:transform 0.35s cubic-bezier(0.25,0.1,0.25,1)}
+  .sticky-bar.show{transform:translateY(0)}
+  .sticky-bar .price-info{font-size:0.82rem;color:rgba(255,255,255,0.85);letter-spacing:0.04em}
+  .sticky-bar .price-info strong{color:var(--ink);font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-size:0.95rem}
+  .sticky-bar .btn-sm{padding:10px 24px;background:var(--vermillion);color:white;font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-decoration:none;border-radius:50px;white-space:nowrap;transition:all 0.3s}
+  .sticky-bar .btn-sm:hover{filter:brightness(0.9)}
+  @media(min-width:769px){.sticky-bar{display:none}}
+
+
+  /* ── 細節調整 ── */
+  
+  /* 按鈕降調：從純色改半透明底＋邊框，hover 才變實心 */
+  .btn-primary{background:rgba(196,69,54,0.1);color:var(--vermillion);border:1px solid rgba(196,69,54,0.2)}
+  .btn-primary:hover{background:var(--vermillion);color:white;border-color:var(--vermillion)}
+  .btn-line{background:rgba(0,128,255,0.06);color:var(--pocari-blue);border:1px solid rgba(0,128,255,0.2)}
+  .btn-line:hover{background:var(--pocari-blue);color:white;border-color:var(--pocari-blue)}
+  .btn-dark{background:rgba(26,26,26,0.06);color:var(--ink);border:1px solid rgba(26,26,26,0.15)}
+  .btn-dark:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .btn-outline{background:transparent;color:white;border:1px solid rgba(255,255,255,0.3)}
+  .btn-outline:hover{background:rgba(255,255,255,0.1);border-color:white}
+  
+  /* 卡片加層次：輕柔內陰影＋微邊框 */
+  .loc-card,.card{border:1px solid rgba(0,0,0,0.04);box-shadow:0 1px 3px rgba(0,0,0,0.02),0 0 0 1px rgba(0,0,0,0.01)}
+  .loc-card:hover,.card:hover{box-shadow:0 8px 30px rgba(0,0,0,0.05),0 0 0 1px rgba(0,0,0,0.03)}
+  
+  /* 字體層次：標題更大、內文更輕 */
+  .section-title{font-weight:700;letter-spacing:0.14em}
+  .section-sub{font-weight:300;line-height:1.9}
+  .loc-body h3,.card-body h3{font-size:1.2rem;font-weight:700;letter-spacing:0.08em}
+  .loc-body p,.card-body p{font-weight:300;line-height:1.85}
+  
+  /* 分隔線更細緻 */
+  .sec-line{height:0.5px;width:48px;opacity:0.5}
+  
+  /* FAQ 更輕 */
+  .faq-q{font-weight:500;letter-spacing:0.08em;font-size:0.88rem}
+  .faq-a{font-weight:300;letter-spacing:0.05em}
+
+@keyframes markGlow{0%,100%{filter:drop-shadow(0 2px 8px rgba(255,255,255,0.2))}50%{filter:drop-shadow(0 2px 16px rgba(255,255,255,0.5))}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo"><img src="sy-dive-images/logo-main.png" alt="櫻雪潛水中心" style="height:36px;"></a>
+  <button class="hamburger" onclick="this.classList.toggle('open');document.querySelector('.nav-links').classList.toggle('open')" aria-label="選單"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="#locations">據點</a></li>
+    <li><a href="#pathway">考證</a></li>
+    <li><a href="#schedule">排程</a></li>
+    <li><a href="#pool">設施</a></li>
+    <li><a href="沖繩潛水導覽.html">沖繩導覽</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact" class="nav-cta">預約</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+<header class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-content">
+    <img src="sy-dive-images/hero-mark.png" alt="" style="width:60px;height:auto;margin:0 auto 1.5rem;display:block;filter:drop-shadow(0 2px 8px rgba(255,255,255,0.3));animation:markGlow 3s ease-in-out infinite;">
+  <div class="hero-kana">サクラユキ ダイビング</div>
+    <h1>滑過一片白，<br>潛入一片<em>藍</em>。</h1>
+    <p>PADI 五星潛水中心 · 台北仁愛訓練 · 東北角龍洞或沖繩青之洞窟拿證</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>仁愛</strong> 台北市大安區仁愛路四段 130 號</div>
+      <div class="hero-meta-item"><strong>沖繩</strong> 恩納村山田 591-1 · 真栄田岬旁</div>
+    </div>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a href="#pathway" class="btn btn-primary">PADI 考證流程</a>
+      <a href="#locations" class="btn btn-outline">認識潛水據點</a>
+    </div>
+  </div>
+  <div class="scroll-hint">— 向下探索 —</div>
+</header>
+
+<!-- ══ 三大據點 ══ -->
+<section class="reveal" id="locations">
+  <div class="section-kana">ロケーション</div>
+  <h2 class="section-title">三個據點 · 一條考證之路</h2>
+  <div class="sec-line"></div>
+  <p class="section-sub">櫻雪潛水中心為 PADI 五星認證潛水中心，擁有台北仁愛（平靜水域）＋東北角龍洞（開放水域）＋沖繩青洞（開放水域＋潛旅）三據點，自有教練全程培訓。</p>
+
+  <div class="loc-grid">
+    <div class="loc-card reveal">
+      <img src="sy-dive-images/loc-pool.png" alt="仁愛游泳池" style="width:100%;height:180px;object-fit:cover;" onerror="this.style.display='none'">
+      <div class="loc-header">
+        <div class="loc-icon tpe">仁</div>
+        <div><span class="loc-badge badge-tpe">平靜水域 · PADI 五星中心</span></div>
+      </div>
+      <div class="loc-body">
+        <h3>櫻雪仁愛五星潛水中心</h3>
+        <p class="jp">台北 · SY Diving Ren'ai 5</p>
+        <p>全年恆溫游泳池，PADI 平靜水域訓練專用。從裝備操作、中性浮力到緊急程序，兩次完整課程幫你打好基礎。同場地另提供游泳課程與場地出租。</p>
+        <div class="loc-address">106 臺北市大安區敦安里仁愛路四段 130 號（安和路側）<br>櫻雪游泳池仁愛館內</div>
+      </div>
+    </div>
+    <div class="loc-card reveal">
+      <img src="sy-dive-images/loc-longdong.png" alt="東北角龍洞" style="width:100%;height:180px;object-fit:cover;" onerror="this.style.display='none'">
+      <div class="loc-header">
+        <div class="loc-icon ld">龍</div>
+        <div><span class="loc-badge badge-taiwan">開放水域 · 台灣</span></div>
+      </div>
+      <div class="loc-body">
+        <h3>東北角龍洞</h3>
+        <p class="jp">新北市貢寮 · 台湾北部</p>
+        <p>台灣最成熟的開放水域潛點，台北出發僅 1 小時。PADI 開放水域考核的在地選項——適合時間有限、想在台灣完成全部訓練的學員。</p>
+        <div class="loc-address">新北市貢寮區龍洞<br>台北出發約 1 小時 · 櫻雪教練團駐點</div>
+      </div>
+    </div>
+    <div class="loc-card reveal">
+      <img src="sy-dive-images/loc-okinawa.png" alt="沖繩青之洞窟" style="width:100%;height:180px;object-fit:cover;" onerror="this.style.display='none'">
+      <div class="loc-header">
+        <div class="loc-icon oki">沖</div>
+        <div><span class="loc-badge badge-oki">開放水域 · 日本 · 全世界唯二藍洞</span></div>
+      </div>
+      <div class="loc-body">
+        <h3>桜雪沖縄青洞潜水センター</h3>
+        <p class="jp">桜雪沖縄 · 真栄田岬 — 沖縄県恩納村</p>
+        <p>全世界唯二的天然藍洞（另一座位於義大利卡布里島）。櫻雪沖繩據點提供 PADI 開放水域考核＋潛旅套裝，考證兼渡假，一次滿足。</p>
+        <div class="loc-address">〒904-0416 沖縄県国頭郡恩納村山田 591-1<br>26.4387, 127.7738 · 真栄田岬步行可達</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 交通資訊 ══ -->
+<section class="reveal">
+  <div class="section-kana">アクセス</div>
+  <h2 class="section-title">交 通 方 式</h2>
+  <div class="sec-line"></div>
+  
+  <div class="loc-grid" style="margin-top:1rem;">
+    <div class="loc-card reveal" style="padding:1.75rem;">
+      <h4 style="font-family:'Noto Serif TC',serif;font-size:1rem;font-weight:700;margin-bottom:0.75rem;"> 沖繩恩納村</h4>
+      <div class="loc-address" style="font-size:0.82rem;line-height:2;">
+        <strong>那霸機場出發</strong><br>
+        自駕約 60 分鐘（國道 58 號北上）<br>
+        機場利木津巴士 → 恩納村役場前<br>
+        <br>
+        <strong style="color:var(--pocari-blue);">免費接送</strong><br>
+        潛店周遭 8km 範圍免費接駁<br>
+        自有 4 台接駁車 · 充足停車位
+      </div>
+    </div>
+    <div class="loc-card reveal" style="padding:1.75rem;">
+      <h4 style="font-family:'Noto Serif TC',serif;font-size:1rem;font-weight:700;margin-bottom:0.75rem;"> 台北仁愛泳池</h4>
+      <div class="loc-address" style="font-size:0.82rem;line-height:2;">
+        捷運淡水信義線<br>
+        <strong>信義安和站</strong> 2 號出口步行 3 分鐘<br>
+        公車 235 / 292 / 33 至仁愛安和路口<br>
+        周邊收費停車場多處
+      </div>
+    </div>
+    <div class="loc-card reveal" style="padding:1.75rem;">
+      <h4 style="font-family:'Noto Serif TC',serif;font-size:1rem;font-weight:700;margin-bottom:0.75rem;"> 東北角龍洞</h4>
+      <div class="loc-address" style="font-size:0.82rem;line-height:2;">
+        台北出發約 1 小時車程<br>
+        國光客運 1811 / 1812 至龍洞站<br>
+        教練團駐點接應 · 集合點通知
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 特色 ══ -->
+<section style="text-align:center;">
+  <div class="section-kana">フィーチャー</div>
+  <h2 class="section-title">為 什 麼 選 櫻 雪</h2>
+  <div class="sec-line"></div>
+  <div class="feats">
+    <div class="feat reveal"><div class="num">20</div><div class="lbl">雙棲教練</div></div>
+    <div class="feat reveal"><div class="num">1:4</div><div class="lbl">師生比</div></div>
+    <div class="feat reveal"><div class="num">5</div><div class="lbl">PADI 五星</div></div>
+    <div class="feat reveal"><div class="num">3</div><div class="lbl">中日英三語</div></div>
+  </div>
+</section>
+
+
+<!-- ══ 課程總覽 ══ -->
+<section class="reveal" id="courses" style="text-align:center;">
+  <div class="section-kana">コース</div>
+  <h2 class="section-title">更 多 課 程</h2>
+  <div class="sec-line"></div>
+  <p class="section-sub" style="margin-bottom:2rem;">不只考證——從體驗到進階，我們都有</p>
+  
+  <div class="loc-grid">
+    <div class="loc-card reveal" style="padding:1.75rem;text-align:left;">
+      <div style="font-family:'Noto Serif TC',serif;font-size:1.3rem;font-weight:700;margin-bottom:0.5rem;"> 體驗潛水</div>
+      <p style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:1rem;">沒證照也能潛！教練一對一帶你下海，全程陪同。</p>
+      <div class="loc-badge badge-tpe" style="font-size:0.7rem;">適合新手 · 約 2.5 小時</div>
+    </div>
+    <div class="loc-card reveal" style="padding:1.75rem;text-align:left;">
+      <div style="font-family:'Noto Serif TC',serif;font-size:1.3rem;font-weight:700;margin-bottom:0.5rem;"> Fundive</div>
+      <p style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:1rem;">已有證照？跟櫻雪教練探索沖繩最美潛點。</p>
+      <div class="loc-badge badge-oki" style="font-size:0.7rem;">持照者專屬 · 1-3 潛/天</div>
+    </div>
+    <div class="loc-card reveal" style="padding:1.75rem;text-align:left;">
+      <div style="font-family:'Noto Serif TC',serif;font-size:1.3rem;font-weight:700;margin-bottom:0.5rem;"> 浮潛</div>
+      <p style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:1rem;">不背氣瓶，輕鬆浮游青之洞窟。親子友善首選。</p>
+      <div class="loc-badge badge-taiwan" style="font-size:0.7rem;">全年齡適用 · 約 2 小時</div>
+    </div>
+  </div>
+  <p style="margin-top:1.5rem;font-size:0.82rem;color:var(--text-secondary);">以上課程定價請洽 LINE 諮詢，我們會根據人數與日期提供報價。</p>
+  <div style="margin-top:1rem;"><a href="https://lin.ee/U08gDqx" class="btn btn-line">LINE 了解詳情</a></div>
+</section>
+
+
+<!-- ══ 沖繩地理 ══ -->
+<section style="text-align:center;padding-bottom:2rem;">
+  <div class="section-kana">OKINAWA</div>
+  <h2 class="section-title">沖 繩 青 之 洞 窟</h2>
+  <div class="sec-line"></div>
+  <div class="feats">
+    <div class="feat"><div class="num">1.5<span style="font-size:0.7rem;">hr</span></div><div class="lbl">台灣直飛</div></div>
+    <div class="feat"><div class="num">60<span style="font-size:0.7rem;">min</span></div><div class="lbl">那霸→恩納村</div></div>
+    <div class="feat"><div class="num">2</div><div class="lbl">全世界唯二藍洞</div></div>
+  </div>
+</section>
+
+<!-- ══ 教練團隊 ══ -->
+<div class="img-band"><img src="sy-dive-images/coach-hero.png" alt="教練團隊"></div>
+
+<!-- ══ PADI 考證路徑 ══ -->
+<div class="pathway-wrap" id="pathway">
+  <div class="pathway-inner">
+    <div class="section-kana">ライセンス</div>
+    <h2 class="section-title">PADI OW 國際潛水執照 · 三步取得</h2>
+    <div class="sec-line"></div>
+    <p class="section-sub">櫻雪已取得 PADI 頒證資格，從課程到發照全程自有體系。終身有效、全球通用。</p>
+    <div class="step-row">
+      <div class="stp">
+        <div class="stp-circle c1">1</div>
+        <h4>平靜水域 ①</h4>
+        <div class="loc">仁愛游泳池</div>
+        <p>基本潛水技能、裝備操作、安全程序。PADI 教練一對一指導，全年恆溫。</p>
+        <div class="stp-arrow">→</div>
+      </div>
+      <div class="stp">
+        <div class="stp-circle c2">2</div>
+        <h4>平靜水域 ②</h4>
+        <div class="loc">仁愛游泳池</div>
+        <p>中性浮力控制、緊急程序演練、水下導航。確認你已準備好面對開放水域。</p>
+        <div class="stp-arrow">→</div>
+      </div>
+      <div class="stp">
+        <div class="stp-circle c3">3</div>
+        <h4>開放水域考核</h4>
+        <div class="loc">龍洞 or 沖繩藍洞</div>
+        <p>在真實海洋完成考核。選龍洞（當日往返）或沖繩（潛旅考證一次滿足）。</p>
+      </div>
+    </div>
+    <div class="cert-badge">
+      <span class="icon">PADI</span>
+      <span class="txt">國際潛水執照 GET<small>終身有效 · 全球通用 · 櫻雪直接頒發</small></span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 方案 ══ -->
+<section class="reveal" id="plan" style="text-align:center;">
+  <div class="section-kana">プラン</div>
+  <h2 class="section-title">専 屬 方 案</h2>
+  <div class="sec-line"></div>
+  <div class="plan-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.75rem;margin-top:1rem;">
+    <div class="loc-card reveal">
+      <div class="loc-header" style="padding-bottom:0;">
+        <div class="loc-icon tpe">台</div>
+        <div><span class="loc-badge badge-taiwan">台灣在地考證</span></div>
+      </div>
+      <div class="loc-body">
+        <h3>龍洞方案</h3>
+        <p class="jp">東北角 · 當日往返</p>
+        <p style="font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-size:2rem;font-weight:700;margin:0.5rem 0;">NT$13,900<small style="font-size:0.55rem;font-weight:400;color:var(--text-secondary);display:block;">起</small></p>
+        <div style="margin:1rem 0;padding-top:1rem;border-top:1px solid var(--border-light);font-size:0.85rem;color:var(--text-secondary);line-height:1.8;">
+          仁愛游泳池 ×2 ＋ 龍洞開放水域 ×1 ＋ PADI 執照 ＋ 裝備 ＋ 保險
+        </div>
+        <div style="text-align:center;"><a href="https://lin.ee/U08gDqx" class="btn btn-line">LINE 諮詢龍洞方案</a></div>
+      </div>
+    </div>
+    <div class="loc-card reveal">
+      <div class="loc-header" style="padding-bottom:0;">
+        <div class="loc-icon oki">沖</div>
+        <div><span class="loc-badge badge-oki">沖繩考證潛旅</span></div>
+      </div>
+      <div class="loc-body">
+        <h3>沖繩方案</h3>
+        <p class="jp">青の洞窟 · 4 天 3 夜</p>
+        <p style="font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-size:2rem;font-weight:700;margin:0.5rem 0;">NT$28,900<small style="font-size:0.55rem;font-weight:400;color:var(--text-secondary);display:block;">起</small></p>
+        <div style="margin:1rem 0;padding-top:1rem;border-top:1px solid var(--border-light);font-size:0.85rem;color:var(--text-secondary);line-height:1.8;">
+          仁愛游泳池 ×2 ＋ 沖繩藍洞 ×1 ＋ 機票 ＋ 住宿 3 晚 ＋ PADI 執照 ＋ 裝備 ＋ 保險 ＋ <span style="color:var(--pocari-blue);font-weight:600;"> 免費水中攝影</span>
+        </div>
+        <div style="text-align:center;"><a href="https://lin.ee/U08gDqx" class="btn btn-line">LINE 諮詢沖繩方案</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 沖繩一日 SOP ══ -->
+<section class="reveal" id="schedule">
+  <div class="section-kana">スケジュール</div>
+  <h2 class="section-title">沖繩青洞 · 一日排程</h2>
+  <div class="sec-line"></div>
+
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-icon">迎</div>
+      <div class="tl-time">7:15</div>
+      <div class="tl-act">開店接客</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-icon">裝</div>
+      <div class="tl-time">8:00</div>
+      <div class="tl-act">簽署 · 著裝</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-icon light">潜</div>
+      <div class="tl-time">8:45</div>
+      <div class="tl-act">安全講解 · 下水</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-icon">換</div>
+      <div class="tl-time">12:00</div>
+      <div class="tl-act">午間輪班</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-icon light">潜</div>
+      <div class="tl-time">12:30</div>
+      <div class="tl-act">下午梯次</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-icon">影</div>
+      <div class="tl-time">17:00</div>
+      <div class="tl-act">上傳照片</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-icon light">休</div>
+      <div class="tl-time">18:00</div>
+      <div class="tl-act">收工</div>
+    </div>
+  </div>
+
+  <div class="tl-summary">
+    <p><strong>每日 4 梯次</strong> · <strong>2 位教練</strong>輪班 · 接送半徑 <strong>8km</strong><br>自有 4 台接駁車 · 充足停車位 · 含接送或自行抵達</p>
+  </div>
+</section>
+
+<!-- ══ 游泳池 ══ -->
+<div class="pool-band reveal" id="pool">
+  <div class="section-kana">ファシリティ</div>
+  <h2 class="section-title">仁 愛 游 泳 池</h2>
+  <div class="sec-line"></div>
+  <p style="font-size:0.85rem;margin-bottom:2rem;">櫻雪自有游泳池全年恆溫，除 PADI 平靜水域訓練外，另提供游泳課程與場地出租<br>
+  台北市大安區仁愛路四段 130 號 · 9 水道 · 25m · 水深 1.2m · 免戴泳帽</p>
+  <div class="pool-grid">
+    <div class="pool-item"><div class="ch">潜</div><div class="tx">PADI 訓練</div></div>
+    <div class="pool-item"><div class="ch">泳</div><div class="tx">游泳課程</div></div>
+    <div class="pool-item"><div class="ch">租</div><div class="tx">場地出租</div></div>
+    <div class="pool-item"><div class="ch">練</div><div class="tx">教練培訓</div></div>
+  </div>
+</div>
+
+<!-- ══ 冬雪夏水 ══ -->
+<div class="img-band"><img src="sy-dive-images/冬雪夏水.png" alt="冬雪夏水"></div>
+<div class="sky-band reveal">
+  <h2 class="section-title">冬 雪 夏 水</h2>
+  <div class="sec-line"></div>
+  <p style="font-size:0.85rem;">冬はスキー、夏はダイビング。20 位雙棲教練，同一個團隊陪你四季。</p>
+</div>
+
+<!-- ══ 優惠 ══ -->
+<div class="discount reveal" id="discount">
+  <div class="stamp">毒友<br>優惠</div>
+  <h3 style="font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-size:1.2rem;font-weight:600;">滑雪老戰友 · 潛水一樣有折扣</h3>
+  <p style="color:var(--text-secondary);font-size:0.85rem;margin-top:0.5rem;">揪團 4 人以上每人折 1,000 · 舊毒友再折 300 · 最多折 1,300</p>
+  <div class="disc-row">
+    <div class="disc-card"><div class="amt">−1,000</div><div class="lbl">揪團現金折抵<br><small>4 人以上同行</small></div></div>
+    <div class="disc-card"><div class="amt">−300</div><div class="lbl">舊毒友折扣<br><small>曾參加滑雪行程</small></div></div>
+  </div>
+</div>
+
+
+<!-- ══ 安全須知 ══ -->
+<section class="reveal" style="text-align:center;">
+  <div class="section-kana">SAFETY</div>
+  <h2 class="section-title">安 全 須 知</h2>
+  <div class="sec-line"></div>
+  <p class="section-sub">潛水安全是我們的第一優先。活動前請確認以下事項。</p>
+  
+  <div class="loc-grid" style="margin-top:1rem;">
+    <div class="loc-card reveal" style="padding:1.75rem;text-align:left;">
+      <h4 style="font-family:'Noto Serif TC',serif;font-size:0.95rem;font-weight:700;margin-bottom:0.75rem;">健康確認</h4>
+      <p style="font-size:0.82rem;color:var(--text-secondary);line-height:1.8;">
+        有心臟病、氣喘、懷孕、癲癇或近期手術者，<br>請務必於活動前告知教練。<br>
+        <span style="color:var(--vermillion);font-size:0.78rem;">完整健康聲明書將於預約後提供。</span>
+      </p>
+    </div>
+    <div class="loc-card reveal" style="padding:1.75rem;text-align:left;">
+      <h4 style="font-family:'Noto Serif TC',serif;font-size:0.95rem;font-weight:700;margin-bottom:0.75rem;">活動須知</h4>
+      <p style="font-size:0.82rem;color:var(--text-secondary);line-height:1.8;">
+        潛水前 8 小時請勿飲酒。<br>
+        潛水後 18-24 小時內請勿搭機。<br>
+        教練有權基於安全考量終止活動。
+      </p>
+    </div>
+    <div class="loc-card reveal" style="padding:1.75rem;text-align:left;">
+      <h4 style="font-family:'Noto Serif TC',serif;font-size:0.95rem;font-weight:700;margin-bottom:0.75rem;">取消政策</h4>
+      <p style="font-size:0.82rem;color:var(--text-secondary);line-height:1.8;">
+        因天候或海況不佳，櫻雪保留取消權利並全額退費。<br>
+        客人取消請於 3 天前通知，當日取消恕不退費。
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ FAQ ══ -->
+<section class="reveal" id="faq" style="max-width:720px;">
+  <div class="section-kana">FAQ</div>
+  <h2 class="section-title">常 見 問 題</h2>
+  <div class="sec-line"></div>
+  <details class="faq-item"><summary class="faq-q">不會游泳，可以學潛水嗎？</summary><p class="faq-a">可以。PADI 只要求不靠漂浮器材在水面待 10 分鐘，並能連續游泳 200 公尺（不限姿勢、不限時間）。重點是不恐慌、能在水中照顧自己。</p></details>
+  <details class="faq-item"><summary class="faq-q">近視可以潛水嗎？</summary><p class="faq-a">可以。戴隱形眼鏡下水，或租用有度數的面鏡。報名時備註度數即可。</p></details>
+  <details class="faq-item"><summary class="faq-q">PADI 證照有期限嗎？</summary><p class="faq-a">終身有效，全球通用。若超過半年未潛水，建議先參加 Refresher 複習課程。</p></details>
+  <details class="faq-item"><summary class="faq-q">有年齡限制嗎？</summary><p class="faq-a">最低 10 歲可取得 Junior OW 證照，15 歲以上可取得標準 OW 證照。上限無硬性規定，通過健康評估即可。</p></details>
+  <details class="faq-item"><summary class="faq-q">沖繩考證需要幾天？</summary><p class="faq-a">沖繩方案為 4 天 3 夜。包含台北游泳池訓練、沖繩開放水域考核、機票住宿。</p></details>
+  <details class="faq-item"><summary class="faq-q">可以跟朋友一起報名嗎？</summary><p class="faq-a">當然。兩人以上同行另有優惠。揪團 4 人以上每人現折 1,000 元。</p></details>
+  <details class="faq-item"><summary class="faq-q">冬天可以學潛水嗎？</summary><p class="faq-a">可以。仁愛游泳池全年恆溫 28°C，冬天照常開課。沖繩也全年可潛。</p></details>
+  <details class="faq-item"><summary class="faq-q">需要自己準備裝備嗎？</summary><p class="faq-a">不需要。課程費用已含全套潛水裝備使用。若自有裝備可折抵部分費用。</p></details>
+</section>
+
+<!-- ══ 親子 ══ -->
+<div class="img-band"><img src="sy-dive-images/family.png" alt="親子友善"></div>
+
+<!-- ══ 台灣潛點 ══ -->
+<div class="img-band"><img src="sy-dive-images/asia.png" alt="台灣潛點"></div>
+
+<!-- ══ 品牌架構 ══ -->
+<section style="text-align:center;">
+  <div class="section-kana">ブランド</div>
+  <h2 class="section-title">櫻 雪 集 團</h2>
+  <div class="sec-line"></div>
+  <div class="brand-tree">
+    <span class="brand-node brand-parent">SAKURA YUKI</span>
+    <span class="brand-arrow">→</span>
+    <span class="brand-node brand-snow">SY Snow<br><small>滑雪</small></span>
+    <span class="brand-node brand-dive">SY Dive<br><small>潛水</small></span>
+    <span class="brand-node brand-swim">SY Swim<br><small>游泳</small></span>
+  </div>
+  <p style="margin-top:1.5rem;font-size:0.8rem;color:var(--text-secondary);">櫻雪潛水中心為 SAKURA YUKI 集團旗下 SY Dive 品牌<br>另設有滑雪中毒者／櫻雪滑雪學校（SY Snow）及櫻雪游泳池／游泳學校（SY Swim）</p>
+</section>
+
+<!-- ══ 聯絡 ══ -->
+<div class="contact reveal" id="contact" style="background:url('sy-dive-images/sunset-footer.png') center/cover no-repeat;position:relative;color:white;">
+  <div style="position:absolute;inset:0;background:rgba(44,95,124,0.88);"></div>
+  <div style="position:relative;z-index:1;">
+  <img src="sy-dive-images/LOGO.png" alt="" class="logo-foot" style="filter:brightness(0)invert(1);">
+  <div class="section-kana" style="color:rgba(255,255,255,0.5);">お問い合わせ</div>
+  <h2 class="section-title" style="color:white;">聯 絡 我 們</h2>
+  <div class="sec-line" style="background:var(--pocari-blue);"></div>
+  <div class="contact-info" style="color:rgba(255,255,255,0.75);">
+    仁愛：台北市大安區仁愛路四段 130 號<br>
+    沖繩：〒904-0416 沖縄県恩納村山田 591-1<br>
+    0966-777737 · sysportclub@gmail.com<br>
+    LINE @sydiving · IG @sydiving · FB @sydiving
+  </div>
+  <div style="margin-top:2rem;"><a href="https://lin.ee/U08gDqx" class="btn btn-primary">加入 LINE 諮詢</a></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <b>櫻雪潛水中心 SY Diving</b><br>
+      SAKURA YUKI 集團 · SY Snow · SY Dive · SY Swim
+    </div>
+    <div style="text-align:center;">
+      <div style="display:inline-flex;align-items:center;gap:0.75rem;padding:12px 20px;border:1px solid rgba(255,255,255,0.15);border-radius:10px;">
+        <span style="font-size:1.4rem;">&#9670;</span>
+        <div style="text-align:left;line-height:1.5;">
+          <span style="font-weight:700;color:white;font-size:0.78rem;letter-spacing:0.06em;">PADI 5-STAR</span><br>
+          <span style="font-size:0.65rem;color:rgba(255,255,255,0.35);">DIVE CENTER</span>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:right;font-size:0.68rem;line-height:1.8;">
+      全員 PADI 認證教練<br>含潛水綜合保險<br>沖繩県公安委員会許可
+    </div>
+  </div>
+</footer>
+
+<script>
+const obs=new IntersectionObserver((e)=>{e.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible')}})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+
+<script>
+document.querySelectorAll('.nav-links a').forEach(function(a){a.addEventListener('click',function(){document.querySelector('.nav-links').classList.remove('open');document.querySelector('.hamburger').classList.remove('open')})});
+</script>
+
+<div class="sticky-bar" id="stickyBar">
+  <div class="price-info">
+    PADI 考證方案 <strong>NT$13,900</strong> 起
+  </div>
+  <a href="https://lin.ee/U08gDqx" class="btn-sm">LINE 諮詢</a>
+</div>
+
+</body>
+</html>

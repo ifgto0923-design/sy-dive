@@ -1,0 +1,300 @@
+1|<!DOCTYPE html>
+2|<html lang="zh-TW">
+3|<head>
+4|<meta charset="UTF-8">
+5|<meta name="viewport" content="width=device-width, initial-scale=1.0">
+6|<title>部落格 | 櫻雪潛水中心 SY Diving</title>
+7|<style>
+8|  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap');
+9|
+10|    :root {
+    --paper:          #faf8f5;
+    --sky-celadon:    #c6e3e8;
+    --ink:            #1a1a1a;
+    --sakura-light:   #f7c5cc;
+    --sakura-main:    #eea5b1;
+    --vermillion:     #c44536;
+    --seafoam:        #d4f1f9;
+    --pocari-blue:    #0080ff;
+    --ryukyu-blue:    #3a7ca5;
+    --deep-ocean:     #2c5f7c;
+    --text-primary:   #1a1a1a;
+    --text-secondary: #5a5a5a;
+    --border-light:   #e8e3d8;
+    --border-blue:    #a8e6f0;
+    --white:          #ffffff;
+    --gold:           #b8956a;
+  }
+14|  *{margin:0;padding:0;box-sizing:border-box}
+15|  html{scroll-behavior:smooth;font-size:16px}
+16|  body{font-family:'Noto Sans TC','Noto Sans JP','PingFang TC','Microsoft YaHei','Hiragino Sans',sans-serif;background:var(--paper);color:var(--ink);line-height:1.85;letter-spacing:0.03em;-webkit-font-smoothing:antialiased}
+17|
+18|  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(44,95,124,0.95);backdrop-filter:blur(8px);padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between}
+19|  .nav-logo img{height:30px}
+20|  .nav-links{display:flex;gap:2rem;list-style:none}
+21|  .nav-links a{font-size:0.8rem;color:var(--text-secondary);text-decoration:none;letter-spacing:0.08em}
+22|  .nav-links a:hover{color:var(--pocari-blue)}
+23|  @media(max-width:640px){.nav-links{gap:1rem}.nav-links a{font-size:0.7rem}}
+24|
+25|  header.hero{min-height:40vh;display:flex;align-items:center;justify-content:center;background:var(--deep-ocean);text-align:center;padding:6rem 2rem 4rem}
+26|  header.hero h1{font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:600;color:white;letter-spacing:0.12em}
+27|  header.hero p{font-size:0.9rem;color:rgba(255,255,255,0.6);margin-top:0.75rem}
+28|
+29|  .blog-list{max-width:800px;margin:0 auto;padding:4rem 2rem}
+30|  .blog-card{display:block;background:var(--white);padding:2.5rem;margin-bottom:1.5rem;text-decoration:none;color:var(--ink);transition:all 0.3s;border:1px solid transparent}
+31|  .blog-card:hover{border-color:var(--pocari-blue);transform:translateY(-2px)}
+32|  .blog-card .cat{font-size:0.62rem;letter-spacing:0.15em;color:var(--deep-ocean);border-bottom:1px solid var(--deep-ocean);display:inline-block;padding-bottom:2px;margin-bottom:0.75rem}
+33|  .blog-card h2{font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-size:1.15rem;font-weight:600;letter-spacing:0.06em;margin-bottom:0.5rem}
+34|  .blog-card .excerpt{font-size:0.85rem;color:var(--text-secondary);line-height:1.8;margin-bottom:1rem}
+35|  .blog-card .read{font-size:0.75rem;color:var(--vermillion);letter-spacing:0.08em}
+36|
+37|  article.post{max-width:720px;margin:0 auto;padding:5rem 2rem}
+38|  article.post h2{font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-size:clamp(1.3rem,3vw,1.6rem);font-weight:600;letter-spacing:0.08em;margin:3rem 0 1rem;padding-top:1.5rem;border-top:1px solid rgba(0,0,0,0.06)}
+39|  article.post h2:first-of-type{margin-top:1.5rem;padding-top:0;border-top:none}
+40|  article.post h3{font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-size:1rem;font-weight:600;margin:2rem 0 0.75rem}
+41|  article.post p{font-size:0.9rem;color:var(--text-secondary);margin-bottom:1rem;line-height:2}
+42|  article.post strong{color:var(--ink)}
+43|  article.post ul{margin:1rem 0 1.5rem 1.5rem}
+44|  article.post li{font-size:0.88rem;color:var(--text-secondary);margin-bottom:0.3rem}
+45|  article.post table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.82rem}
+46|  article.post th{background:var(--deep-ocean);color:white;padding:10px 14px;text-align:left;font-weight:500;letter-spacing:0.05em}
+47|  article.post td{padding:10px 14px;border-bottom:1px solid rgba(0,0,0,0.06);color:var(--text-secondary)}
+48|  article.post hr{border:none;border-top:1px solid rgba(0,0,0,0.06);margin:2rem 0}
+49|  article.post em{color:var(--text-secondary)}
+50|  .back{display:inline-block;margin-bottom:2rem;font-size:0.8rem;color:var(--text-secondary);text-decoration:none;letter-spacing:0.06em}
+51|  .back:hover{color:var(--ink)}
+52|
+53|  .btn{display:inline-flex;align-items:center;gap:0.3rem;padding:12px 32px;font-size:0.85rem;font-weight:500;letter-spacing:0.08em;text-decoration:none;cursor:pointer;transition:all 0.3s}
+54|  .btn-red{background:var(--vermillion);color:white}
+55|  .btn-red:hover{background:#9a2a25}
+56|  .btn-dark{background:var(--ink);color:var(--paper)}
+57|  .btn-dark:hover{background:#333}
+58|
+59|  .cta{text-align:center;padding:4rem 2rem;background:var(--deep-ocean);color:white}
+60|  .cta h3{font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-size:1.3rem;font-weight:600;margin-bottom:0.5rem}
+61|  .cta p{color:rgba(255,255,255,0.6);font-size:0.85rem;margin-bottom:1.5rem}
+62|
+63|
+  .reveal { opacity:0; transform:translateY(30px); transition:all 0.7s cubic-bezier(0.25,0.1,0.25,1); }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  .reveal { opacity:0; transform:translateY(30px); transition:all 0.7s cubic-bezier(0.25,0.1,0.25,1); }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  footer{background:var(--ink);color:rgba(255,255,255,0.35);text-align:center;padding:3rem 2rem;font-size:0.72rem;letter-spacing:0.06em;line-height:2.2}
+64|  footer b{color:rgba(255,255,255,0.55);font-weight:500}
+65|</style>
+66|</head>
+67|<body>
+68|
+69|<nav>
+70|  <a href="櫻雪旅行社_潛水服務.html" class="nav-logo"><img src="sy-dive-images/logo-main.png" alt="櫻雪潛水中心"></a>
+71|  <ul class="nav-links">
+72|    <li><a href="櫻雪旅行社_潛水服務.html">首頁</a></li>
+73|    <li><a href="沖繩潛水導覽.html">沖繩導覽</a></li>
+74|    <li><a href="#post-1">考證攻略</a></li>
+75|    <li><a href="#post-2">藍洞指南</a></li>
+76|    <li><a href="#post-3">台北開箱</a></li>
+77|  </ul>
+78|</nav>
+79|
+80|<header class="hero">
+81|  <div>
+82|    <h1>潛 水 筆 記</h1>
+83|    <p>從一片白，潛入一片藍。櫻雪潛水中心部落格。</p>
+84|  </div>
+85|</header>
+86|
+87|<!-- ═══ 文章列表 ═══ -->
+88|<div class="blog-list">
+89|  <a href="#post-1" class="blog-card">
+90|    <span class="cat">考證</span>
+91|    <h2>PADI 開放水域潛水員考證全攻略：流程、費用、時間一次看懂</h2>
+92|    <p class="excerpt">想學潛水但不知道從哪裡開始？從 OW 是什麼、流程怎麼跑、要花多少時間跟錢，到「不會游泳能不能學」，一次講清楚。</p>
+93|    <span class="read">閱讀全文 →</span>
+94|  </a>
+95|  <a href="#post-2" class="blog-card">
+96|    <span class="cat">沖繩</span>
+97|    <h2>沖繩青之洞窟潛水全指南：為什麼全世界只有兩個藍洞？</h2>
+98|    <p class="excerpt">站在岸邊只是一道岩縫，潛入水面後整片藍色光暈從洞穴深處湧上來。全世界唯二天然藍洞，一座在義大利，一座在沖繩——而且你可以游進去。</p>
+99|    <span class="read">閱讀全文 →</span>
+100|  </a>
+101|  <a href="#post-3" class="blog-card">
+102|    <span class="cat">台北</span>
+103|    <h2>台北學潛水去哪？仁愛游泳池 PADI 五星訓練中心開箱</h2>
+104|    <p class="excerpt">大安區仁愛國中裡面就藏著一座 PADI 五星潛水訓練中心，全年恆溫、捷運走路就到。從場地、課程、交通到考證路徑，一次講清楚。</p>
+105|    <span class="read">閱讀全文 →</span>
+106|  </a>
+107|</div>
+108|
+109|<!-- ═══ 文章 1 ═══ -->
+110|<article class="post" id="post-1">
+111|  <a href="#" class="back">← 回文章列表</a>
+112|  <h2>PADI 開放水域潛水員考證全攻略：流程、費用、時間一次看懂</h2>
+113|  <p>想學潛水，但不知道從哪裡開始？看到朋友 IG 上的海底照片，心裡那顆種子一直在發芽——這篇就是為你寫的。從 OW 是什麼、流程怎麼跑、要花多少時間跟錢，到「不會游泳能不能學」，一次講清楚。</p>
+114|
+115|  <h2>PADI OW 是什麼？為什麼要考？</h2>
+116|  <p><strong>PADI</strong> 是全球最大的潛水訓練組織，證照在全世界通用。<strong>OW（Open Water Diver）</strong> 是潛水員的第一張證照——考到之後，你就可以跟潛伴一起，獨立下潛到 <strong>最深 18 公尺</strong>，不再需要教練全程陪同。</p>
+117|
+118|  <h2>考證三步驟</h2>
+119|  <h3>一、學科知識</h3>
+120|  <p>先用 PADI eLearning 在家讀完潛水物理、減壓理論、裝備操作和水下安全守則，再到潛水中心筆試。</p>
+121|  <h3>二、平靜水域訓練（游泳池）</h3>
+122|  <p>在游泳池受控環境中，跟教練反覆練習面鏡排水、調節器尋回、中性浮力控制和緊急狀況處理。沒有浪、沒有流，你可以在完全安全的條件下建立肌肉記憶。</p>
+123|  <p>櫻雪潛水的泳池課在 <strong>台北仁愛游泳池</strong>——全年恆溫、九水道標準池、免戴泳帽，不必擔心天氣。</p>
+124|  <h3>三、開放水域考核（海洋）</h3>
+125|  <p>技術練好，就出海。在教練陪同下完成四支氣瓶的海洋實習，把泳池學到的技巧在真實海域中施展。這不只是考試——是你第一次真正成為潛水員。</p>
+126|
+127|  <h2>時間要多久？</h2>
+128|  <table><tr><th>階段</th><th>所需時間</th></tr>
+129|  <tr><td>eLearning 學科</td><td>約 8-12 小時，在家自行安排</td></tr>
+130|  <tr><td>平靜水域訓練</td><td>2 個半天，約 8-10 小時</td></tr>
+131|  <tr><td>開放水域考核</td><td>1 天，4 支氣瓶，約 6-8 小時</td></tr></table>
+132|  <p>最緊湊的排法，一個週末加一天就能結訓。多數學員用兩個週末，節奏更舒服。</p>
+133|
+134|  <h2>費用大概多少？</h2>
+135|  <p>台灣 PADI OW 行情約 <strong>NT$12,000 到 16,000</strong>（本地海洋實習）。影響價格的關鍵不是數字本身，而是教練比和場地——1:4 以下的師生比才有足夠的個人指導時間；自有游泳池不必跟外客擠水道，效率差很多。</p>
+136|
+137|  <h2>不會游泳，可以學嗎？</h2>
+138|  <p>可以，但有條件。PADI 要求：不靠漂浮器材在水面待 10 分鐘，並能連續游泳 200 公尺（或穿蛙鞋游 300 公尺）。不需要是選手——重點是<strong>不恐慌、能在水中照顧自己</strong>。很多人學潛水的過程，才第一次真正不怕水。</p>
+139|
+140|  <h2>櫻雪方案對照</h2>
+141|  <table><tr><th></th><th>龍洞方案</th><th>沖繩青之洞窟方案</th></tr>
+142|  <tr><td>價格</td><td><strong>NT$13,900 起</strong></td><td><strong>NT$28,900 起</strong></td></tr>
+143|  <tr><td>訓練場地</td><td>台北仁愛游泳池</td><td>台北仁愛游泳池</td></tr>
+144|  <tr><td>開放水域</td><td>東北角龍洞</td><td>沖繩青之洞窟</td></tr>
+145|  <tr><td>適合</td><td>時間有限、北部完成</td><td>一趟潛旅、解鎖海外潛點</td></tr></table>
+146|  <p>兩個方案都含：eLearning 教材、全程裝備、簽證費、教練費。教練比最高 1:4，20 位冬雪夏水雙棲教練團隊。</p>
+147|
+148|  <h2>常見 QA</h2>
+149|  <p><strong>近視可以潛水嗎？</strong> 可以。戴隱形眼鏡或租度數面鏡，報名時備註度數即可。</p>
+150|  <p><strong>證照有期限嗎？</strong> 終身有效。超過半年沒潛，建議先做 Refresher 複習潛水。</p>
+151|  <p><strong>有年齡限制嗎？</strong> 最低 10 歲。上限沒有硬性規定，健康評估通過即可。</p>
+152|  <p><strong>可以跟朋友一起報名嗎？</strong> 當然。兩人以上同行另有優惠，歡迎透過 LINE 或電話詢問。</p>
+153|
+154|  <p><em>從一片白，潛入一片藍。你的第一張潛水證照，就從這裡開始。</em></p>
+155|</article>
+156|
+157|<!-- ═══ 文章 2 ═══ -->
+158|<article class="post" id="post-2">
+159|  <a href="#" class="back">← 回文章列表</a>
+160|  <h2>沖繩青之洞窟潛水全指南：為什麼全世界只有兩個藍洞？</h2>
+161|  <p>當陽光穿過海面，在洞穴入口折射出攝氏零度般的冰藍光芒——那不是濾鏡，那是沖繩真榮田岬的日常。站在岸邊往下看，只是一道不起眼的岩縫。但當你潛入水面，整片藍色光暈從洞穴深處湧上來，像走進另一個星球的入口。這就是「青之洞窟」，全世界僅有的兩座天然藍洞之一。</p>
+162|
+163|  <h2>藍洞是什麼？為什麼是藍色？</h2>
+164|  <p>藍洞是石灰岩海岸被海浪長年侵蝕形成的海蝕洞穴。當洞穴頂部部分塌陷後，陽光從洞口射入，經海水過濾，紅光與黃光被吸收，只剩下藍光穿透到洞穴深處——整座洞穴就像浸泡在藍色的液體光之中。這個現象需要非常精確的條件：洞穴開口的角度、水深、岩壁的淺色反射面，三者缺一不可。</p>
+165|
+166|  <h2>全世界唯二的藍洞：沖繩 vs 卡布里島</h2>
+167|  <table><tr><th></th><th>沖繩 真榮田岬</th><th>義大利 卡布里島</th></tr>
+168|  <tr><td>名稱</td><td>青之洞窟</td><td>Grotta Azzurra（藍洞）</td></tr>
+169|  <tr><td>進入方式</td><td>步行入水或搭船，自由潛入</td><td>搭小船、必須躺平進入</td></tr>
+170|  <tr><td>體驗時間</td><td>30-60 分鐘自由潛水</td><td>約 5 分鐘船內觀光</td></tr>
+171|  <tr><td>水溫</td><td>全年 21-28°C</td><td>冬季較冷、夏季 24°C</td></tr>
+172|  <tr><td>距離台灣</td><td>飛行 1.5 小時</td><td>飛行 14+ 小時、轉機轉船</td></tr></table>
+173|  <p>卡布里島的藍洞是觀光景點，五分鐘就出來。沖繩的青之洞窟不一樣——你要自己游進去。這是「走進藍洞」和「看一眼藍洞」的差別。</p>
+174|
+175|  <h2>最佳造訪季節與時間</h2>
+176|  <p><strong>季節</strong>：沖繩全年可潛水，但 5 月到 10 月是最佳季節，水溫舒適（25-28°C）。7-8 月旺季海況最穩定。11-4 月水溫降至 21-23°C，人少清靜。</p>
+177|  <p><strong>時間</strong>：上午 8:00-10:00 是最佳時段——陽光角度剛好讓洞穴內的藍光最飽和，而且第一梯次入水，人最少。</p>
+178|  <p><strong>潮汐</strong>：乾潮前後 1-2 小時，洞內水面最平靜，光線條件最好。</p>
+179|
+180|  <h2>從台灣怎麼去</h2>
+181|  <p>台北飛沖繩那霸只要 <strong>1 小時 30 分鐘</strong>，比去墾丁還快。桃園、松山、台中、高雄都有直飛航班。抵達那霸機場後，往北沿國道 58 號開約 <strong>1 小時</strong>，就到恩納村真榮田岬。</p>
+182|
+183|  <h2>體驗潛水 vs 考證潛水</h2>
+184|  <table><tr><th></th><th>體驗潛水</th><th>考證潛水</th></tr>
+185|  <tr><td>適合對象</td><td>無潛水經驗、想試試看</td><td>想取得國際認證、未來自主潛水</td></tr>
+186|  <tr><td>事前準備</td><td>10 分鐘岸上簡報</td><td>學科 + 平靜水域 + 開放水域訓練</td></tr>
+187|  <tr><td>深度限制</td><td>最深 6-12 公尺（教練全程拉著你）</td><td>18-30 公尺（取決於證照等級）</td></tr>
+188|  <tr><td>時間</td><td>單次約 30-40 分鐘</td><td>課程完成後終身有效</td></tr>
+189|  <tr><td>費用</td><td>約 NT$2,500-4,000</td><td>PADI OW 約 NT$12,000-15,000</td></tr></table>
+190|
+191|  <h2>櫻雪沖繩考證潛旅方案</h2>
+192|  <p>櫻雪潛水中心 SY Diving 是 <strong>PADI 五星潛水中心</strong>，沖繩據點就位於真榮田岬旁——走到青之洞窟入水點只要幾分鐘。專為台灣人設計的 <strong>沖繩考證潛旅 4 天 3 夜</strong>方案：</p>
+193|  <ul>
+194|    <li><strong>NT$28,900 起</strong>（含 PADI OW 考證課程、裝備、教材、簽證費）</li>
+195|    <li>4 天 3 夜，住宿安排在恩納村，離潛點步行可達</li>
+196|    <li>平靜水域訓練 + 開放水域實戰，結訓即取得 PADI 國際潛水證照</li>
+197|    <li>開放水域課程直接在青之洞窟及周邊潛點進行</li>
+198|    <li>不需潛水經驗，會游泳即可報名</li>
+199|    <li>教練學員比最高 1:2，全程中文教學，無語言門檻</li>
+200|  </ul>
+201|
+202|  <h2>行前準備清單</h2>
+203|  <p><strong>證件類</strong>：護照（效期 6 個月以上）、台灣駕照 + 日文譯本（如果要租車）</p>
+204|  <p><strong>裝備類</strong>：泳衣 / 水母衣、防曬（物理防曬優先，化學防曬會傷害珊瑚）、毛巾、防水袋、暈船藥</p>
+205|  <p><strong>身體準備</strong>：潛水前 8 小時不喝酒、潛水後 18-24 小時內不搭飛機、感冒鼻塞時不下水、充足睡眠</p>
+206|
+207|  <p><em>真榮田岬的藍光不是奇蹟，是物理。但它看起來像奇蹟。櫻雪潛水中心，恩納村山田 591-1，真榮田岬旁。</em></p>
+208|</article>
+209|
+210|<!-- ═══ 文章 3 ═══ -->
+211|<article class="post" id="post-3">
+212|  <a href="#" class="back">← 回文章列表</a>
+213|  <h2>台北學潛水去哪？仁愛游泳池 PADI 五星訓練中心開箱</h2>
+214|  <p>在台北想學潛水，你第一個念頭大概是：「台北又不靠海，去哪學？」但如果告訴你，大安區仁愛國中裡面就藏著一座 PADI 五星潛水訓練中心，而且全年恆溫、捷運走路就到——是不是有點推翻想像？</p>
+215|
+216|  <h2>在台北學潛水，你有幾個選擇？</h2>
+217|  <table><tr><th>訓練階段</th><th>台北選項</th><th>開放水域選項</th></tr>
+218|  <tr><td>平靜水域</td><td>運動中心泳池 / 潛店自有泳池</td><td>—</td></tr>
+219|  <tr><td>開放水域</td><td>—</td><td>東北角龍洞 / 小琉球 / 綠島 / 沖繩</td></tr></table>
+220|  <p>大多數潛店在台北沒有自有泳池，得跟運動中心租時段。櫻雪不一樣——直接經營一座 25 米標準泳池，全年 28 度恆溫，這在台北市中心幾乎找不到第二間。</p>
+221|
+222|  <h2>櫻雪仁愛據點：藏在大安區的潛水基地</h2>
+223|  <p><strong>地址</strong>：台北市大安區仁愛路四段 130 號（仁愛國中游泳池）<br>
+224|  <strong>池規格</strong>：9 水道 × 25 公尺 × 水深 1.2 公尺<br>
+225|  <strong>全年恆溫 28°C</strong>，冬天照樣下水</p>
+226|  <p>幾個細節值得一提：</p>
+227|  <ul>
+228|    <li><strong>免戴泳帽</strong>，這對長髮學員來說是天大的福音</li>
+229|    <li><strong>全中文教練團</strong>，溝通零障礙</li>
+230|    <li><strong>中、日、英三語服務</strong>，外籍朋友也能安心上課</li>
+231|    <li><strong>1:4 教練學員比</strong>，安全跟學習品質都有保障</li>
+232|    <li><strong>20 位教練團隊</strong>，PADI 五星潛水中心的標準規模</li>
+233|  </ul>
+234|
+235|  <h2>游泳池學潛水的三個隱藏好處</h2>
+236|  <p><strong>一、安全可控，新手友好</strong>——在能見度百米的泳池裡練，跟在浪打能見度不到五米的海裡練，完全是兩回事。</p>
+237|  <p><strong>二、全年無休，不受季節限制</strong>——十二月照樣開課，台北人想學潛水不用等夏天。</p>
+238|  <p><strong>三、場地專用，節奏自己掌控</strong>——櫻雪自有泳池的節奏從容很多，卡關的技巧多練半小時，不用趕，練到好為止。</p>
+239|
+240|  <h2>從游泳池到開放水域：考證路徑</h2>
+241|  <table><tr><th>方案</th><th>開放水域地點</th><th>參考價格</th></tr>
+242|  <tr><td>龍洞方案</td><td>東北角龍洞</td><td>NT$13,900 起</td></tr>
+243|  <tr><td>沖繩方案</td><td>沖繩青之洞窟（真栄田岬）</td><td>NT$28,900 起</td></tr></table>
+244|  <p>考證流程：LINE 諮詢 → 確認排課（72hr 回覆）→ 付款報名 → 泳池訓練 → 開放水域考核 → 拿 PADI OW 證照。</p>
+245|
+246|  <h2>交通：大安區正中心，捷運走路就到</h2>
+247|  <p>最近的捷運站是信義安和站（淡水信義線），步行大約七分鐘。忠孝敦化站（板南線）步行約十分鐘。下班後直接搭捷運過來，晚上上完課回家不用長途奔波。學潛水不需要變成週末往返北海岸的苦行。</p>
+248|
+249|  <h2>不只潛水：其他服務</h2>
+250|  <ul>
+251|    <li><strong>游泳課程</strong>：兒童班、成人班、一對一指導</li>
+252|    <li><strong>場地出租</strong>：泳池水道可供訓練、拍攝、活動租用</li>
+253|    <li><strong>潛水裝備諮詢</strong>：教練團可以推薦適合新手的裝備</li>
+254|  </ul>
+255|
+256|  <h2>如何預約體驗</h2>
+257|  <p>LINE：@sydiving ｜ 電話：0966-777737 ｜ Email：sysportclub@gmail.com ｜ 官網：sydiving.com.tw</p>
+258|  <p>Facebook / Instagram / Threads：@sydiving</p>
+259|  <p>台北學潛水，缺的不是熱情，是一個好場地。如果你一直在等一個「方便又專業」的學潛水機會，這裡就是了。</p>
+260|</article>
+261|
+262|<!-- ═══ CTA ═══ -->
+263|<div class="cta">
+264|  <h3>準備好開啟你的潛水之旅了嗎？</h3>
+265|  <p>加入 LINE，讓櫻雪團隊為你規劃最適合的方案。</p>
+266|  <a href="https://lin.ee/U08gDqx" class="btn btn-red">LINE 諮詢</a>
+267|</div>
+268|
+269|<footer>
+270|  <b>櫻雪潛水中心 SY Diving</b><br>
+271|  SAKURA YUKI · SY Dive · 冬雪夏水 · PADI 五星
+272|</footer>
+273|
+274|<script>
+const obs=new IntersectionObserver((e)=>{e.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible')}})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+275|</html>
+276|

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沖繩潛水導覽 | 櫻雪潛水中心 SY Diving</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+  :root {
+    --paper: #faf8f5; --celadon: #c6e3e8; --ink: #1a1a1a; --ink-mid: #5a5a5a;
+    --sakura: #eea5b1; --vermillion: #c44536; --seafoam: #d4f1f9;
+    --pocari: #0080ff; --ryukyu: #3a7ca5; --deep: #2c5f7c;
+    --border: #e8e3d8; --white: #fff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;font-size:16px}
+  body{font-family:'Noto Sans TC','Noto Sans JP','PingFang TC','Microsoft YaHei','Hiragino Sans',sans-serif;background:var(--paper);color:var(--ink);line-height:1.85;letter-spacing:0.03em;-webkit-font-smoothing:antialiased}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(44,95,124,0.95);backdrop-filter:blur(8px);padding:0 2rem;height:56px;display:flex;align-items:center;justify-content:space-between}
+  .nav-logo img{height:30px}
+  .nav-links{display:flex;gap:2rem;list-style:none}
+  .nav-links a{font-size:0.8rem;color:rgba(255,255,255,0.8);text-decoration:none;letter-spacing:0.08em}
+  .nav-links a:hover{color:white}
+  @media(max-width:640px){.nav-links{gap:1rem}.nav-links a{font-size:0.7rem}}
+
+  .sec{padding:5rem 2rem;max-width:960px;margin:0 auto}
+  .sec-label{display:block;text-align:center;font-family:'Noto Sans JP',sans-serif;font-size:0.65rem;color:var(--ink-mid);letter-spacing:0.25em;margin-bottom:0.75rem}
+  .sec-title{text-align:center;font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-size:clamp(1.3rem,3vw,1.8rem);font-weight:600;letter-spacing:0.12em}
+  .sec-line{width:32px;height:1px;background:var(--vermillion);margin:1rem auto 1.5rem}
+
+  .btn{display:inline-flex;align-items:center;gap:0.3rem;padding:12px 32px;font-size:0.85rem;font-weight:500;letter-spacing:0.08em;text-decoration:none;cursor:pointer;transition:all 0.35s cubic-bezier(0.25,0.1,0.25,1)}
+  .btn-red{background:var(--vermillion);color:white}.btn-red:hover{filter:brightness(0.9);transform:translateY(-1px)}
+  .btn-dark{background:var(--ink);color:var(--paper)}.btn-dark:hover{background:#333;transform:translateY(-1px)}
+
+  .hero{position:relative;min-height:80vh;display:flex;align-items:center;justify-content:center;background:var(--deep);overflow:hidden}
+  .hero-bg{position:absolute;inset:0;background:url('sy-dive-images/沖繩.png') center/cover no-repeat;opacity:0.4}
+  .hero-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(44,95,124,0.3),rgba(44,95,124,0.75))}
+  .hero-txt{position:relative;z-index:2;text-align:center;max-width:640px;padding:0 2rem}
+  .hero-txt h1{font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:600;color:white;letter-spacing:0.12em}
+  .hero-txt h1 em{font-style:normal;color:#e8c87a}
+  .hero-txt p{font-size:0.9rem;color:rgba(255,255,255,0.65);margin:1rem 0 2rem}
+
+  .geo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
+  @media(max-width:640px){.geo-grid{grid-template-columns:1fr}}
+  .geo-card{text-align:center;padding:2rem 1rem;background:var(--white);border:1px solid var(--border)}
+  .geo-card .num{font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-size:2rem;font-weight:700;color:var(--deep)}
+  .geo-card .unit{font-size:0.75rem;color:var(--ink-mid)}
+  .geo-card .lbl{font-size:0.82rem;color:var(--ink-mid);margin-top:0.25rem}
+
+  .icon-row{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem}
+  .icon-item{text-align:center;padding:1.5rem 2rem;min-width:140px;transition:all 0.3s}
+  .icon-item:hover{transform:translateY(-2px)}
+  .icon-item .ico{width:56px;height:56px;border:1px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 0.75rem;font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-weight:700;font-size:0.9rem;color:var(--ink);transition:border-color 0.3s}
+  .icon-item:hover .ico{border-color:var(--pocari)}
+  .icon-item h4{font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-size:0.88rem;font-weight:600;letter-spacing:0.06em}
+  .icon-item p{font-size:0.72rem;color:var(--ink-mid);margin-top:0.25rem}
+
+  .food-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem}
+  .food-card{background:var(--white);border:1px solid var(--border);overflow:hidden;transition:all 0.35s}
+  .food-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.04)}
+  .food-card .img{height:140px;background-size:cover;background-position:center;background-color:#e8e4dd}
+  .food-card .body{padding:1.25rem}
+  .food-card .cat{font-size:0.62rem;letter-spacing:0.15em;color:var(--deep);border-bottom:1px solid var(--deep);display:inline-block;padding-bottom:2px;margin-bottom:0.5rem}
+  .food-card h5{font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-size:0.88rem;font-weight:600}
+  .food-card .jp-name{font-size:0.68rem;color:var(--ink-mid);margin-bottom:0.4rem}
+  .food-card p{font-size:0.75rem;color:var(--ink-mid);line-height:1.6}
+
+  .carousel{position:relative;overflow:hidden;max-width:100%}
+  .track{display:flex;transition:transform 0.5s ease}
+  .slide{min-width:100%;height:400px;background-size:cover;background-position:center;display:flex;align-items:flex-end;padding:3rem}
+  @media(max-width:640px){.slide{height:240px}}
+  .slide .cap{background:rgba(0,0,0,0.5);color:white;padding:0.75rem 1.25rem;font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-size:1rem}
+  .dots{display:flex;gap:0.5rem;justify-content:center;padding:1rem}
+  .dots button{width:8px;height:8px;border-radius:50%;border:none;background:var(--ink-mid);cursor:pointer;padding:0;opacity:0.3}
+  .dots button.active{background:var(--ink);opacity:1}
+
+  .map-wrap{width:100%;height:360px;background:#e8e4dd}
+  .map-wrap iframe{width:100%;height:100%;border:none}
+
+  .cta-section{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+  @media(max-width:700px){.cta-section{grid-template-columns:1fr}}
+  .cta-info{font-size:0.88rem;color:var(--ink-mid);line-height:2.3}
+  .cta-form{background:var(--white);border:1px solid var(--border);padding:2rem}
+  .cta-form label{display:block;font-size:0.78rem;color:var(--ink-mid);letter-spacing:0.06em;margin-bottom:0.3rem;margin-top:1rem}
+  .cta-form input,.cta-form textarea{width:100%;padding:10px 14px;border:1px solid var(--border);font-family:inherit;font-size:0.85rem;background:var(--paper)}
+  .cta-form textarea{min-height:120px;resize:vertical}
+  .cta-form input:focus,.cta-form textarea:focus{outline:none;border-color:var(--pocari)}
+
+  .sky-band{background:var(--celadon);padding:5rem 2rem;text-align:center}
+  .sky-band .sec-title{color:var(--ink)}
+  .sky-band .sec-line{background:var(--vermillion)}
+
+
+  .reveal { opacity:0; transform:translateY(30px); transition:all 0.7s cubic-bezier(0.25,0.1,0.25,1); }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  .reveal { opacity:0; transform:translateY(30px); transition:all 0.7s cubic-bezier(0.25,0.1,0.25,1); }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  footer{background:var(--ink);color:rgba(255,255,255,0.35);text-align:center;padding:3rem 2rem;font-size:0.72rem;letter-spacing:0.06em;line-height:2.2}
+  footer b{color:rgba(255,255,255,0.55);font-weight:500}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="櫻雪旅行社_潛水服務.html" class="nav-logo"><img src="sy-dive-images/logo-main.png" alt="櫻雪潛水中心"></a>
+  <ul class="nav-links">
+    <li><a href="櫻雪旅行社_潛水服務.html">首頁</a></li>
+    <li><a href="#geo">簡介</a></li>
+    <li><a href="#food">美食</a></li>
+    <li><a href="#spots">景點</a></li>
+    <li><a href="#go">出發</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="hero-bg"></div><div class="hero-veil"></div>
+  <div class="hero-txt">
+    <h1>來沖繩，<em>Fun</em> 暑假</h1>
+    <p>飛行 1.5 小時 · 潛入全世界唯二的青之洞窟</p>
+    <a href="#go" class="btn btn-red">現在就出發吧</a>
+  </div>
+</header>
+
+<section class="sec reveal" id="geo">
+  <span class="sec-label">OKINAWA</span>
+  <h2 class="sec-title">沖 繩 簡 介</h2>
+  <div class="sec-line"></div>
+  <p style="text-align:center;color:var(--ink-mid);max-width:600px;margin:0 auto 2rem;">沖繩面積約 0.06 個台灣、2 個香港。櫻雪據點位於中部恩納村，緊鄰青之洞窟，那霸機場開車 1 小時直達。</p>
+  <div class="geo-grid">
+    <div class="geo-card reveal"><div class="num">1.5<span class="unit">hr</span></div><div class="lbl">台灣直飛</div></div>
+    <div class="geo-card reveal"><div class="num">60<span class="unit">min</span></div><div class="lbl">那霸→恩納村</div></div>
+    <div class="geo-card reveal"><div class="num">2<span class="unit">處</span></div><div class="lbl">全世界唯二藍洞</div></div>
+  </div>
+</section>
+
+<div class="sky-band reveal">
+  <h2 class="sec-title">為 什 麼 跟 櫻 雪 潛 水</h2>
+  <div class="sec-line"></div>
+  <div class="icon-row">
+    <div class="icon-item"><div class="ico">家</div><h4>老少皆宜</h4><p>8 歲到 80 歲都能潛</p></div>
+    <div class="icon-item"><div class="ico">語</div><h4>中文服務</h4><p>中日英三語教練</p></div>
+    <div class="icon-item"><div class="ico">藍</div><h4>世界唯二</h4><p>沖繩 vs 義大利藍洞</p></div>
+    <div class="icon-item"><div class="ico">安</div><h4>安全暢遊</h4><p>師生比 1:4 · PADI 五星</p></div>
+  </div>
+</div>
+
+<section class="sec reveal" id="food">
+  <span class="sec-label">GOURMET</span>
+  <h2 class="sec-title">美 食 饗 宴</h2>
+  <div class="sec-line"></div>
+  <p style="text-align:center;color:var(--ink-mid);margin-bottom:2rem;">潛完水，犒賞自己。恩納村周邊 8 間必訪</p>
+  <div class="food-grid">
+    <div class="food-card reveal"><div class="img" style="background-image:url('sy-dive-images/food-1.png')"></div><div class="body"><span class="cat">燒肉</span><h5>琉球の牛</h5><p class="jp-name">恩納店</p><p>沖繩頂級和牛，入口即化石垣牛</p></div></div>
+    <div class="food-card reveal"><div class="img" style="background-image:url('sy-dive-images/food-2.png')"></div><div class="body"><span class="cat">海鮮</span><h5>浜の家</h5><p class="jp-name">Hama no Ie</p><p>奶油烤魚與海膽焗龍蝦</p></div></div>
+    <div class="food-card reveal"><div class="img" style="background-image:url('sy-dive-images/food-3.png')"></div><div class="body"><span class="cat">拉麵</span><h5>暖暮拉麵</h5><p class="jp-name">Danbo 名護店</p><p>九州第一豚骨，濃厚湯頭</p></div></div>
+    <div class="food-card reveal"><div class="img" style="background-image:url('sy-dive-images/food-4.png')"></div><div class="body"><span class="cat">牛排</span><h5>Steak 88</h5><p class="jp-name">ステーキハウス</p><p>美式鐵板，湯吧沙拉吧</p></div></div>
+    <div class="food-card reveal"><div class="img" style="background-image:url('sy-dive-images/food-5.png')"></div><div class="body"><span class="cat">咖啡</span><h5>Oni Café</h5><p class="jp-name">オニカフェ</p><p>海景第一排，巴西莓碗</p></div></div>
+    <div class="food-card reveal"><div class="img" style="background-image:url('sy-dive-images/food-6.png')"></div><div class="body"><span class="cat">甜點</span><h5>三矢本舗</h5><p class="jp-name">開口笑</p><p>外酥內軟琉球甜甜圈</p></div></div>
+    <div class="food-card reveal"><div class="img" style="background-image:url('sy-dive-images/food-7.png')"></div><div class="body"><span class="cat">鄉土料理</span><h5>大家</h5><p class="jp-name">うふやー</p><p>百年古民家，Agu 豬涮涮鍋</p></div></div>
+    <div class="food-card reveal"><div class="img" style="background-image:url('sy-dive-images/food-8.png')"></div><div class="body"><span class="cat">烘焙</span><h5>水円</h5><p class="jp-name">Suien Bakery</p><p>甘蔗田間的窯烤麵包</p></div></div>
+  </div>
+</section>
+
+<section class="sec reveal" id="spots" style="max-width:100%;padding-left:0;padding-right:0;">
+  <div style="max-width:960px;margin:0 auto;padding:0 2rem;">
+    <span class="sec-label">SIGHTSEEING</span>
+    <h2 class="sec-title">必 訪 景 點</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="carousel" id="cs">
+    <div class="track" id="tk">
+      <div class="slide" style="background-image:url('sy-dive-images/spot-1.png')"><div class="cap">青之洞窟 · 全世界唯二藍洞</div></div>
+      <div class="slide" style="background-image:url('sy-dive-images/spot-2.png')"><div class="cap">美麗海水族館 · 世界最大鯨鯊</div></div>
+      <div class="slide" style="background-image:url('sy-dive-images/spot-3.png')"><div class="cap">古宇利大橋 · 最美的跨海大橋</div></div>
+      <div class="slide" style="background-image:url('sy-dive-images/spot-4.png')"><div class="cap">首里城 · 琉球王國象徵</div></div>
+      <div class="slide" style="background-image:url('sy-dive-images/spot-5.png')"><div class="cap">萬座毛 · 象鼻斷崖絕景</div></div>
+      <div class="slide" style="background-image:url('sy-dive-images/spot-6.png')"><div class="cap">美國村 · 夕陽摩天輪</div></div>
+      <div class="slide" style="background-image:url('sy-dive-images/spot-7.png')"><div class="cap">殘波岬 · 白色燈塔</div></div>
+      <div class="slide" style="background-image:url('sy-dive-images/spot-8.png')"><div class="cap">瀨底島 · 透明玻璃海</div></div>
+    </div>
+  </div>
+  <div class="dots" id="dts"></div>
+</section>
+
+<section class="sec reveal" style="max-width:100%;padding-left:0;padding-right:0;">
+  <div style="max-width:960px;margin:0 auto;padding:0 2rem;">
+    <span class="sec-label">LOCATION</span>
+    <h2 class="sec-title">櫻 雪 沖 繩 據 點</h2>
+    <div class="sec-line"></div>
+    <p style="text-align:center;color:var(--ink-mid);margin-bottom:1.5rem;">〒904-0416 沖縄県国頭郡恩納村山田 591-1 · 真栄田岬步行可達</p>
+  </div>
+  <div class="map-wrap">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3571.5!2d127.7738!3d26.4387!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDI2JzE5LjMiTiAxMjfCsDQ2JzI1LjgiRQ!5e0!3m2!1szh-TW!2stw!4v1" allowfullscreen loading="lazy"></iframe>
+  </div>
+</section>
+
+<section class="sec reveal" id="go">
+  <span class="sec-label">LET'S GO</span>
+  <h2 class="sec-title">現 在 就 出 發 吧</h2>
+  <div class="sec-line"></div>
+  <div class="cta-section">
+    <div class="cta-info">
+      <p style="font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-size:1.1rem;font-weight:600;margin-bottom:1rem;">櫻雪潛水中心</p>
+      <p>沖繩：〒904-0416 恩納村山田 591-1<br>台北：大安區仁愛路四段 130 號</p>
+      <p>☎ 0966-777737<br>✉ sysportclub@gmail.com<br>LINE @sydiving</p>
+      <div style="margin-top:1.5rem;"><a href="https://lin.ee/U08gDqx" class="btn btn-dark">加入 LINE 諮詢</a></div>
+    </div>
+    <div class="cta-form">
+      <label>電子信箱</label><input type="email" placeholder="your@email.com">
+      <label>主旨</label><input type="text" placeholder="我想了解沖繩考證方案">
+      <label>您的訊息</label><textarea placeholder="人數、日期、想了解的方案⋯"></textarea>
+      <button class="btn btn-red" style="width:100%;margin-top:1rem;">送出訊息</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <b>櫻雪潛水中心 SY Diving</b><br>
+  SAKURA YUKI · SY Dive · 冬雪夏水 · PADI 五星
+</footer>
+
+<script>
+const tk=document.getElementById('tk'),dts=document.getElementById('dts'),sl=tk.children;
+let c=0;
+for(let i=0;i<sl.length;i++){const b=document.createElement('button');if(i===0)b.className='active';b.onclick=()=>go(i);dts.appendChild(b)}
+function go(i){c=i;tk.style.transform=`translateX(-${c*100}%)`;dts.querySelectorAll('button').forEach((b,j)=>b.className=j===c?'active':'')}
+setInterval(()=>go((c+1)%sl.length),4000);
+</script>
+<script>
+const obs=new IntersectionObserver((e)=>{e.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible')}})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
