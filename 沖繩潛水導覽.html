@@ -33,13 +33,13 @@
   .btn-red{background:var(--vermillion);color:white}.btn-red:hover{filter:brightness(0.9);transform:translateY(-1px)}
   .btn-dark{background:var(--ink);color:var(--paper)}.btn-dark:hover{background:#333;transform:translateY(-1px)}
 
-  .hero{position:relative;min-height:80vh;display:flex;align-items:center;justify-content:center;background:var(--deep);overflow:hidden}
-  .hero-bg{position:absolute;inset:0;background:url('sy-dive-images/okinawa-hero.jpg') center/cover no-repeat;opacity:0.4}
-  .hero-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(44,95,124,0.3),rgba(44,95,124,0.75))}
+  .hero{position:relative;min-height:80vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#d4f1f9 0%,#a8e6f0 30%,#3a7ca5 100%);overflow:hidden}
+  .hero-bg{position:absolute;inset:0;background:url('sy-dive-images/okinawa-hero.jpg') center/cover no-repeat;opacity:0.28}
+  .hero-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(58,124,165,0.15),rgba(44,95,124,0.35))}
   .hero-txt{position:relative;z-index:2;text-align:center;max-width:640px;padding:0 2rem}
-  .hero-txt h1{font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:600;color:white;letter-spacing:0.12em}
-  .hero-txt h1 em{font-style:normal;color:#e8c87a}
-  .hero-txt p{font-size:0.9rem;color:rgba(255,255,255,0.65);margin:1rem 0 2rem}
+  .hero-kana{font-family:'Noto Sans JP',sans-serif;font-size:0.65rem;letter-spacing:0.35em;color:rgba(255,255,255,0.55);margin-bottom:1rem}
+  .hero-txt h1{font-family:'Noto Serif TC','PMingLiU','Songti SC','SimSun',serif;font-size:clamp(2.2rem,5.5vw,3.4rem);font-weight:700;color:white;letter-spacing:0.15em;text-shadow:0 1px 4px rgba(0,0,0,0.1)}
+  .hero-txt p{font-size:0.82rem;color:rgba(255,255,255,0.7);margin:0.75rem 0 2rem;letter-spacing:0.06em}
 
   .geo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
   @media(max-width:640px){.geo-grid{grid-template-columns:1fr}}
@@ -104,9 +104,9 @@
 <body>
 
 <nav>
-  <a href="櫻雪旅行社_潛水服務.html" class="nav-logo"><img src="sy-dive-images/logo-main.png" alt="櫻雪潛水中心"></a>
+  <a href="index.html" class="nav-logo"><img src="sy-dive-images/logo-main.png" alt="櫻雪潛水中心"></a>
   <ul class="nav-links">
-    <li><a href="櫻雪旅行社_潛水服務.html">首頁</a></li>
+    <li><a href="index.html">首頁</a></li>
     <li><a href="#geo">簡介</a></li>
     <li><a href="#food">美食</a></li>
     <li><a href="#spots">景點</a></li>
@@ -117,9 +117,10 @@
 <header class="hero">
   <div class="hero-bg"></div><div class="hero-veil"></div>
   <div class="hero-txt">
-    <h1>來沖繩，<em>Fun</em> 暑假</h1>
-    <p>飛行 1.5 小時 · 潛入全世界唯二的青之洞窟</p>
-    <a href="#go" class="btn btn-red">現在就出發吧</a>
+    <div class="hero-kana">OKINAWA</div>
+    <h1>沖繩の青</h1>
+    <p>桜雪 · 恩納村 · 真栄田岬 — 全世界唯二の天然藍洞</p>
+    <a href="#go" class="btn btn-red">跟櫻雪出發</a>
   </div>
 </header>
 
