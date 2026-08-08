@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>櫻雪游泳池 SY Swim</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&family=ZCOOL+KuaiLe&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Yuji+Mai&family=Kiwi+Maru:wght@500&display=swap');
   :root {
     --paper: #fdfaf5; --ink: #3a3028; --ink-mid: #8b7e6e;
     --sky: #d4f1f9; --pool: #0088cc; --coral: #f7c5cc;
@@ -21,7 +21,7 @@
   .crayon:nth-child(3){animation-delay:0.4s}
   .crayon:nth-child(4){animation-delay:0.55s}
   .doodle-section{position:relative;padding:5rem 1.5rem;max-width:920px;margin:0 auto}
-  .doodle-title{font-family:'ZCOOL KuaiLe','Noto Sans TC',sans-serif;font-size:2.2rem;color:var(--ink);text-align:center;margin-bottom:0.5rem}
+  .doodle-title{font-family:'Kiwi Maru','Yuji Mai','Noto Sans TC',cursive,sans-serif;font-size:2.2rem;color:var(--ink);text-align:center;margin-bottom:0.5rem}
   .doodle-title::after{content:'';display:block;width:60px;height:4px;background:linear-gradient(90deg,#f7c5cc,#a8e6f0,#d4f1f9);margin:0.8rem auto 2rem;border-radius:2px}
   .doodle-sub{text-align:center;font-size:0.95rem;color:var(--ink-mid);margin-bottom:2.5rem;font-family:'Noto Serif TC',serif}
 
@@ -35,19 +35,20 @@
   .hero{min-height:85vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#d4f1f9 0%,#a8e6f0 50%,#3a7ca5 100%);position:relative;overflow:hidden;padding:6rem 1.5rem 4rem}
   .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 30%,rgba(255,255,255,0.3) 0%,transparent 60%),radial-gradient(circle at 80% 70%,rgba(249,213,110,0.2) 0%,transparent 50%)}
   .hero-content{position:relative;z-index:1;text-align:center;color:white;max-width:600px}
-  .hero-content h1{font-family:'ZCOOL KuaiLe','Noto Sans TC',sans-serif;font-size:clamp(2.5rem,6vw,4rem);line-height:1.3;margin-bottom:1rem;text-shadow:2px 3px 0 rgba(0,0,0,0.15)}
+  .hero-content h1,.doodle-title,.card h3{filter:url(#crayon)}
+  .hero-content h1{font-family:'Kiwi Maru','Yuji Mai',cursive,serif;'Kiwi Maru','Yuji Mai','Noto Sans TC',cursive,sans-serif;font-size:clamp(2.5rem,6vw,4rem);line-height:1.3;margin-bottom:1rem;text-shadow:2px 3px 0 rgba(0,0,0,0.15)}
   .hero-content p{font-size:1.1rem;opacity:0.9;font-family:'Noto Serif TC',serif;margin-bottom:2rem}
 
   .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
   .card{background:white;padding:2rem 1.5rem;border-radius:18px 6px 18px 6px;border:2px solid var(--border);box-shadow:3px 3px 0 rgba(0,0,0,0.06);transition:transform 0.3s,box-shadow 0.3s}
   .card:hover{transform:translateY(-4px);box-shadow:6px 6px 0 rgba(0,0,0,0.08)}
-  .card h3{font-family:'ZCOOL KuaiLe','Noto Sans TC',sans-serif;font-size:1.25rem;margin-bottom:0.5rem;color:var(--ink)}
+  .card h3{font-family:'Kiwi Maru','Yuji Mai','Noto Sans TC',cursive,sans-serif;font-size:1.25rem;margin-bottom:0.5rem;color:var(--ink)}
   .card p{font-size:0.85rem;color:var(--ink-mid);line-height:1.7}
 
   .stats-row{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin:2rem 0}
   .stat{text-align:center;background:white;border:2px solid var(--border);border-radius:50%;width:120px;height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:3px 3px 0 rgba(0,0,0,0.05);transition:transform 0.3s}
   .stat:hover{transform:scale(1.1)}
-  .stat-num{font-family:'ZCOOL KuaiLe',sans-serif;font-size:1.8rem;color:#3a7ca5}
+  .stat-num{font-family:'Kiwi Maru','Yuji Mai','Noto Sans TC',cursive,sans-serif;font-size:1.8rem;color:#3a7ca5}
   .stat-lbl{font-size:0.78rem;color:var(--ink-mid);margin-top:0.3rem}
 
   .pool-band{position:relative;overflow:hidden;height:380px;display:flex;align-items:center;justify-content:center;border:3px solid var(--border);border-radius:18px 6px 18px 6px;margin:2rem auto;max-width:920px;box-shadow:6px 6px 0 rgba(0,0,0,0.06)}
@@ -72,6 +73,16 @@
 </style>
 </head>
 <body>
+
+<svg style="display:none;">
+  <defs>
+    <filter id="crayon">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
 
 <nav class="nav">
   <a href="櫻雪旅行社_潛水服務.html" class="nav-logo"><img src="sy-dive-images/logo-main.png" alt="櫻雪"></a>
